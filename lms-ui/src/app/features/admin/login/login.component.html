@@ -1,0 +1,351 @@
+<div class="login-page">
+
+    <!-- =========================================
+         LEFT PROMOTIONAL PANEL
+         ========================================= -->
+    <section class="login-promo">
+  
+      <!-- Background shapes -->
+      <div class="promo-shape promo-shape-one"></div>
+      <div class="promo-shape promo-shape-two"></div>
+  
+      <div class="promo-content">
+  
+        <!-- Logo -->
+        <div class="brand">
+          <div class="brand-icon">
+            <i class="pi pi-graduation-cap"></i>
+          </div>
+  
+          <span>LMS SkillUp</span>
+        </div>
+  
+        <!-- Main heading -->
+        <div class="promo-heading">
+  
+          <h1>
+            Learn Today
+            <br />
+            Build <span>Tomorrow</span>
+          </h1>
+  
+          <p>
+            Gain in-demand skills, learn from expert instructors
+            and achieve your career goals with LMS SkillUp.
+          </p>
+  
+        </div>
+  
+        <!-- Features -->
+        <div class="promo-features">
+  
+          <div class="feature-item">
+  
+            <div class="feature-icon feature-green">
+              <i class="pi pi-book"></i>
+            </div>
+  
+            <div>
+              <h3>Quality Courses</h3>
+              <p>Structured and updated content</p>
+            </div>
+  
+          </div>
+  
+          <div class="feature-item">
+  
+            <div class="feature-icon feature-orange">
+              <i class="pi pi-users"></i>
+            </div>
+  
+            <div>
+              <h3>Expert Instructors</h3>
+              <p>Learn from industry professionals</p>
+            </div>
+  
+          </div>
+  
+          <div class="feature-item">
+  
+            <div class="feature-icon feature-purple">
+              <i class="pi pi-chart-bar"></i>
+            </div>
+  
+            <div>
+              <h3>Track Progress</h3>
+              <p>Monitor your learning journey</p>
+            </div>
+  
+          </div>
+  
+          <div class="feature-item">
+  
+            <div class="feature-icon feature-red">
+              <i class="pi pi-verified"></i>
+            </div>
+  
+            <div>
+              <h3>Earn Certificates</h3>
+              <p>Showcase your achievements</p>
+            </div>
+  
+          </div>
+  
+        </div>
+  
+        <!-- Illustration -->
+        <div class="promo-illustration">
+  
+          <div class="learning-words">
+            <span>Learn</span>
+            <span>Practice</span>
+            <span>Build</span>
+            <span>Succeed</span>
+          </div>
+  
+          <div class="progress-note">
+            <span>"Small Steps</span>
+            <span>Big Progress"</span>
+          </div>
+  
+          <img
+            src="assets/images/hero-learner.png"
+            alt="Learner studying online"
+            class="learner-image"
+          />
+  
+        </div>
+  
+      </div>
+  
+    </section>
+  
+  
+    <!-- =========================================
+         RIGHT LOGIN PANEL
+         ========================================= -->
+    <section class="login-section">
+  
+      <div class="login-card">
+  
+        <!-- Login brand -->
+        <div class="login-brand">
+  
+          <div class="login-brand-icon">
+            <i class="pi pi-graduation-cap"></i>
+          </div>
+  
+          <span>LMS SkillUp</span>
+  
+        </div>
+  
+        <p class="journey-text">
+          Your Learning Journey Starts Here
+        </p>
+  
+  
+        <!-- Heading -->
+        <div class="login-heading">
+  
+          <h2>Welcome Back!</h2>
+  
+          <p>
+            Login to continue your learning journey
+          </p>
+  
+        </div>
+  
+  
+        <!-- Form -->
+        <form
+          [formGroup]="loginForm"
+          (ngSubmit)="onLogin()"
+          class="login-form"
+        >
+  
+          <!-- Username -->
+          <div class="form-field">
+  
+            <label for="username">
+              Email or Username
+            </label>
+  
+            <div class="input-wrapper">
+  
+              <i class="pi pi-user"></i>
+  
+              <input
+                id="username"
+                type="text"
+                pInputText
+                formControlName="username"
+                placeholder="Enter your email or username"
+                autocomplete="username"
+              />
+  
+            </div>
+  
+            @if (username?.touched && username?.hasError('required')) {
+              <small class="error-message">
+                Email or username is required.
+              </small>
+            }
+  
+          </div>
+  
+  
+          <!-- Password -->
+          <div class="form-field">
+  
+            <label for="password">
+              Password
+            </label>
+  
+            <div class="input-wrapper password-wrapper">
+  
+              <i class="pi pi-lock"></i>
+  
+              <input
+                id="password"
+                [type]="showPassword ? 'text' : 'password'"
+                pInputText
+                formControlName="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+              />
+  
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="showPassword = !showPassword"
+                [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+              >
+                <i
+                  [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"
+                ></i>
+              </button>
+  
+            </div>
+  
+            @if (password?.touched && password?.hasError('required')) {
+              <small class="error-message">
+                Password is required.
+              </small>
+            }
+  
+            @if (password?.touched && password?.hasError('minlength')) {
+              <small class="error-message">
+                Password must be at least 6 characters.
+              </small>
+            }
+  
+          </div>
+  
+  
+          <!-- Remember + Forgot -->
+          <div class="login-options">
+  
+            <label class="remember-option">
+  
+              <p-checkbox
+                formControlName="rememberMe"
+                [binary]="true"
+                inputId="rememberMe">
+              </p-checkbox>
+  
+              <span>Remember me</span>
+  
+            </label>
+  
+            <button
+              type="button"
+              class="forgot-button"
+              (click)="forgotPassword()"
+            >
+              Forgot Password?
+            </button>
+  
+          </div>
+  
+  
+          <!-- Login -->
+          <button
+            pButton
+            type="submit"
+            class="login-button"
+            [loading]="loading"
+            [disabled]="loading"
+          >
+  
+            <span pButtonLabel>
+              Login
+            </span>
+  
+            @if (!loading) {
+              <i class="pi pi-arrow-right"></i>
+            }
+  
+          </button>
+  
+  
+          <!-- Divider -->
+          <div class="divider">
+  
+            <span></span>
+  
+            <label>OR</label>
+  
+            <span></span>
+  
+          </div>
+  
+  
+          <!-- Google -->
+          <button
+            type="button"
+            class="google-button"
+            (click)="continueWithGoogle()"
+          >
+  
+            <span class="google-icon">G</span>
+  
+            <span>Continue with Google</span>
+  
+          </button>
+  
+  
+          <!-- Register -->
+          <div class="register-text">
+  
+            <span>Don't have an account?</span>
+  
+            <button
+              type="button"
+              (click)="register()"
+            >
+              Register
+            </button>
+  
+          </div>
+  
+  
+          <!-- Back Home -->
+          <button
+            type="button"
+            class="back-home"
+            (click)="goHome()"
+          >
+  
+            <i class="pi pi-arrow-left"></i>
+  
+            <span>Back to Home</span>
+  
+          </button>
+  
+        </form>
+  
+      </div>
+  
+    </section>
+  
+  </div>

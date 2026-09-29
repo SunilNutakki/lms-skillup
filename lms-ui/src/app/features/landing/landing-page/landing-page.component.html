@@ -1,0 +1,794 @@
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
+
+<header class="main-header">
+
+    <div class="header-container">
+  
+      <!-- Logo -->
+      <a class="logo" routerLink="/">
+        <span class="logo-icon">
+          <i class="pi pi-graduation-cap"></i>
+        </span>
+  
+        <span class="logo-text">
+          LMS SkillUp
+        </span>
+      </a>
+  
+      <!-- Desktop Navigation -->
+      <nav class="main-nav">
+  
+        <a routerLink="/" class="active">
+          Home
+        </a>
+  
+        <a routerLink="/courses">
+          Courses
+        </a>
+  
+        <a routerLink="/practice">
+          Practice
+        </a>
+  
+        <a routerLink="/interview-prep">
+          Interview Prep
+        </a>
+  
+        <a routerLink="/learners">
+          For Learners
+        </a>
+  
+        <a routerLink="/tutors">
+          For Tutors
+        </a>
+  
+        <a routerLink="/about">
+          About
+        </a>
+  
+      </nav>
+  
+      <!-- Right Header -->
+      <div class="header-actions">
+  
+        <div class="search-box">
+  
+          <i class="pi pi-search"></i>
+  
+          <input
+            pInputText
+            type="text"
+            [(ngModel)]="searchText"
+            placeholder="Search courses, topics..."
+          />
+  
+        </div>
+  
+        <a
+          pButton
+          routerLink="/login"
+          class="login-btn"
+          label="Login">
+        </a>
+  
+        <a
+          pButton
+          routerLink="/register"
+          class="get-started-btn"
+          label="Get Started">
+        </a>
+  
+      </div>
+  
+    </div>
+  
+  </header>
+  
+  
+  <!-- ========================= -->
+  <!-- HERO SECTION -->
+  <!-- ========================= -->
+  
+  <section class="hero-section">
+  
+    <div class="hero-container">
+  
+      <!-- Left Content -->
+      <div class="hero-content">
+  
+        <div class="hero-tag">
+          LEARN
+          <span>•</span>
+          PRACTICE
+          <span>•</span>
+          GROW
+        </div>
+  
+        <h1>
+          Build Your Skills
+          <br />
+  
+          For A
+          <span>Brighter Future</span>
+        </h1>
+  
+        <p class="hero-description">
+          Learn Java, Spring Boot, Angular, SQL and more with
+          structured courses, hands-on projects and expert guidance.
+        </p>
+  
+        <!-- CTA -->
+        <div class="hero-buttons">
+  
+          <button
+            pButton
+            type="button"
+            label="Explore Free Lessons"
+            icon="pi pi-arrow-right"
+            iconPos="right"
+            class="primary-hero-btn"
+            (click)="exploreCourses()">
+          </button>
+  
+          <button
+            pButton
+            type="button"
+            label="Watch Intro"
+            icon="pi pi-play-circle"
+            class="secondary-hero-btn"
+            (click)="watchIntro()">
+          </button>
+  
+        </div>
+  
+  
+        <!-- Hero Features -->
+        <div class="hero-features">
+  
+          <div class="hero-feature">
+  
+            <div class="feature-icon green">
+              <i class="pi pi-book"></i>
+            </div>
+  
+            <span>
+              Quality
+              <br />
+              Courses
+            </span>
+  
+          </div>
+  
+  
+          <div class="hero-feature">
+  
+            <div class="feature-icon orange">
+              <i class="pi pi-users"></i>
+            </div>
+  
+            <span>
+              Expert
+              <br />
+              Instructors
+            </span>
+  
+          </div>
+  
+  
+          <div class="hero-feature">
+  
+            <div class="feature-icon purple">
+              <i class="pi pi-chart-bar"></i>
+            </div>
+  
+            <span>
+              Track
+              <br />
+              Progress
+            </span>
+  
+          </div>
+  
+  
+          <div class="hero-feature">
+  
+            <div class="feature-icon red">
+              <i class="pi pi-cog"></i>
+            </div>
+  
+            <span>
+              Earn
+              <br />
+              Certificates
+            </span>
+  
+          </div>
+  
+        </div>
+  
+      </div>
+  
+  
+      <!-- Right Hero Illustration -->
+      <div class="hero-image-area">
+  
+        <div class="hero-circle"></div>
+  
+        <div class="learning-message">
+          <span>Learn</span>
+          <span>Practice</span>
+          <span>Build</span>
+          <span>Succeed</span>
+  
+          <div class="message-line"></div>
+        </div>
+  
+        <!-- Person Illustration -->
+        <div class="person-placeholder">
+          <img
+            src="assets/images/hero-learner.png"
+            alt="Learner studying online"
+            class="hero-learner-image"
+          />
+        </div>
+  
+        <div class="journey-card">
+  
+          <div class="journey-icon">
+            <i class="pi pi-graduation-cap"></i>
+          </div>
+  
+          <div>
+            <strong>
+              Your Learning Journey
+            </strong>
+  
+            <span>
+              Starts Here
+            </span>
+          </div>
+  
+        </div>
+  
+  
+        <div class="progress-message">
+          <span>"Small</span>
+          <span>Steps</span>
+          <span>Big</span>
+          <span>Progress"</span>
+  
+          <div class="message-line"></div>
+        </div>
+  
+      </div>
+  
+    </div>
+  
+  </section>
+  
+  
+  <!-- ========================= -->
+  <!-- STATISTICS -->
+  <!-- ========================= -->
+  
+  <section class="statistics-section">
+  
+    <div class="statistics-container">
+  
+      @for (stat of statistics; track stat.label) {
+  
+        <div class="stat-item">
+  
+          <div class="stat-icon">
+            <i [class]="stat.icon"></i>
+          </div>
+  
+          <div class="stat-content">
+  
+            <strong>
+              {{ stat.value }}
+            </strong>
+  
+            <span>
+              {{ stat.label }}
+            </span>
+  
+          </div>
+  
+        </div>
+  
+      }
+  
+    </div>
+  
+  </section>
+  
+  
+  <!-- ========================= -->
+  <!-- FREE PREVIEW COURSES -->
+  <!-- ========================= -->
+  
+  <section class="preview-section">
+  
+    <div class="section-container">
+  
+      <div class="section-heading">
+  
+        <div>
+          <h2>
+            Explore Free Preview Content
+          </h2>
+  
+          <p>
+            Get a taste of our learning material before you login.
+            Start learning today!
+          </p>
+        </div>
+  
+        <a routerLink="/courses" class="view-all">
+          View All
+          <i class="pi pi-arrow-right"></i>
+        </a>
+  
+      </div>
+  
+  
+      <!-- Course Cards -->
+      <div class="course-grid">
+  
+        @for (course of previewCourses; track course.title) {
+  
+          <div class="course-card">
+  
+            <div class="course-icon">
+              <i [class]="course.icon"></i>
+            </div>
+  
+            <h3>
+              {{ course.title }}
+            </h3>
+  
+            <p>
+              {{ course.description }}
+            </p>
+  
+            <ul>
+  
+              @for (point of course.points; track point) {
+  
+                <li>
+                  <i class="pi pi-check"></i>
+                  <span>{{ point }}</span>
+                </li>
+  
+              }
+  
+            </ul>
+  
+            <button
+              pButton
+              type="button"
+              label="Preview Lesson"
+              class="preview-btn">
+            </button>
+  
+          </div>
+  
+        }
+  
+      </div>
+  
+    </div>
+  
+  </section>
+  
+  
+  <!-- ========================= -->
+  <!-- TODAY'S CHALLENGE -->
+  <!-- ========================= -->
+  
+  <section class="challenge-section">
+  
+    <div class="section-container">
+  
+      <div class="challenge-grid">
+  
+        <!-- Question -->
+        <div class="challenge-card">
+  
+          <div class="challenge-header">
+  
+            <div class="challenge-title">
+  
+              <span class="fire-icon">
+                🔥
+              </span>
+  
+              <div>
+                <h2>
+                  Today's Challenge
+                </h2>
+  
+                <p>
+                  Test your knowledge with a quick question!
+                </p>
+              </div>
+  
+            </div>
+  
+            <span class="technology-badge">
+              Java
+            </span>
+  
+          </div>
+  
+  
+          <div class="question-area">
+  
+            <div class="code-box">
+  
+              <div class="question-text">
+                What is the output of the following code?
+              </div>
+  
+              <pre><code>String s1 = "Java";
+  String s2 = new String("Java");
+  System.out.println(s1 == s2);</code></pre>
+  
+            </div>
+  
+  
+            <div class="answers">
+  
+              @for (option of challengeOptions; track option) {
+  
+                <label class="answer-option">
+  
+                  <input
+                    type="radio"
+                    name="challenge"
+                    [value]="option"
+                    [(ngModel)]="selectedAnswer"
+                  />
+  
+                  <span class="radio-circle"></span>
+  
+                  <span>
+                    {{ option }}
+                  </span>
+  
+                </label>
+  
+              }
+  
+              <button
+                pButton
+                type="button"
+                label="Check Answer"
+                class="check-answer-btn"
+                (click)="checkAnswer()">
+              </button>
+  
+            </div>
+  
+          </div>
+  
+        </div>
+  
+  
+        <!-- Practice Promo -->
+        <div class="practice-promo">
+  
+          <div class="promo-content">
+  
+            <div class="promo-title">
+              <span>💡</span>
+  
+              <h2>
+                Like this challenge?
+              </h2>
+            </div>
+  
+            <p>
+              Get 1000+ practice questions, quizzes,
+              projects and certifications.
+            </p>
+  
+            <a
+              pButton
+              routerLink="/login"
+              label="Login to Continue"
+              class="promo-login-btn">
+            </a>
+  
+            <a
+              routerLink="/courses"
+              class="explore-link">
+  
+              Explore All Courses
+  
+              <i class="pi pi-arrow-right"></i>
+  
+            </a>
+  
+          </div>
+  
+  
+          <div class="promo-person">
+  
+            <div class="promo-character">
+              👨‍💻
+            </div>
+  
+            <div class="promo-laptop">
+              💻
+            </div>
+  
+          </div>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  
+  </section>
+  
+  
+  <!-- ========================= -->
+  <!-- ROLES -->
+  <!-- ========================= -->
+  
+  <section class="roles-section">
+  
+    <div class="section-container">
+  
+      <div class="section-heading-simple">
+  
+        <h2>
+          Who Can Use LMS SkillUp?
+        </h2>
+  
+        <p>
+          A platform designed for everyone in the learning journey.
+        </p>
+  
+      </div>
+  
+  
+      <div class="roles-grid">
+  
+        @for (role of learningRoles; track role.title) {
+  
+          <div class="role-card">
+  
+            <div class="role-icon">
+              <i [class]="role.icon"></i>
+            </div>
+  
+            <div class="role-content">
+  
+              <h3>
+                {{ role.title }}
+              </h3>
+  
+              <p>
+                {{ role.description }}
+              </p>
+  
+              <button
+                pButton
+                type="button"
+                [label]="role.buttonText"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                [class]="role.buttonClass">
+              </button>
+  
+            </div>
+  
+          </div>
+  
+        }
+  
+      </div>
+  
+    </div>
+  
+  </section>
+  
+  
+  <!-- ========================= -->
+  <!-- TESTIMONIALS -->
+  <!-- ========================= -->
+  
+  <section class="testimonials-section">
+  
+    <div class="section-container">
+  
+      <div class="section-heading-simple">
+  
+        <h2>
+          What Our Learners Say
+        </h2>
+  
+        <p>
+          Real feedback from our community.
+        </p>
+  
+      </div>
+  
+  
+      <div class="testimonial-grid">
+  
+        @for (testimonial of testimonials; track testimonial.name) {
+  
+          <div class="testimonial-card">
+  
+            <div class="testimonial-top">
+  
+              <div class="avatar">
+                {{ testimonial.avatar }}
+              </div>
+  
+              <div class="testimonial-message">
+                "{{ testimonial.message }}"
+              </div>
+  
+            </div>
+  
+  
+            <div class="rating">
+              ★★★★★
+            </div>
+  
+  
+            <div class="testimonial-user">
+  
+              <strong>
+                {{ testimonial.name }}
+              </strong>
+  
+              <span>
+                {{ testimonial.role }}
+              </span>
+  
+            </div>
+  
+          </div>
+  
+        }
+  
+      </div>
+  
+    </div>
+  
+  </section>
+  
+  
+  <!-- ========================= -->
+  <!-- FINAL CTA -->
+  <!-- ========================= -->
+  
+  <section class="final-cta-section">
+  
+    <div class="section-container">
+  
+      <div class="final-cta">
+  
+        <div class="cta-icon">
+          <i class="pi pi-send"></i>
+        </div>
+  
+  
+        <div class="cta-content">
+  
+          <h2>
+            Ready to Start Your Learning Journey?
+          </h2>
+  
+          <p>
+            Join LMS SkillUp today and take the next step
+            towards a brighter future.
+          </p>
+  
+        </div>
+  
+  
+        <div class="cta-buttons">
+  
+          <a
+            pButton
+            routerLink="/register"
+            label="Create Account"
+            class="create-account-btn">
+          </a>
+  
+          <a
+            pButton
+            routerLink="/login"
+            label="Login"
+            class="cta-login-btn">
+          </a>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  
+  </section>
+  
+  
+  <!-- ========================= -->
+  <!-- FOOTER -->
+  <!-- ========================= -->
+  
+  <footer class="footer">
+  
+    <div class="footer-container">
+  
+      <div class="footer-brand">
+  
+        <div class="footer-logo">
+  
+          <i class="pi pi-graduation-cap"></i>
+  
+          <strong>
+            LMS SkillUp
+          </strong>
+  
+        </div>
+  
+        <span>
+          Learn • Teach • Grow
+        </span>
+  
+      </div>
+  
+  
+      <div class="footer-links">
+  
+        <a routerLink="/">Home</a>
+        <a routerLink="/courses">Courses</a>
+        <a routerLink="/about">About</a>
+        <a routerLink="/contact">Contact</a>
+        <a routerLink="/privacy">Privacy Policy</a>
+        <a routerLink="/terms">Terms of Service</a>
+  
+      </div>
+  
+  
+      <div class="social-links">
+  
+        <a href="#">
+          <i class="pi pi-linkedin"></i>
+        </a>
+  
+        <a href="#">
+          <i class="pi pi-twitter"></i>
+        </a>
+  
+        <a href="#">
+          <i class="pi pi-youtube"></i>
+        </a>
+  
+        <a href="#">
+          <i class="pi pi-instagram"></i>
+        </a>
+  
+      </div>
+  
+  
+      <div class="copyright">
+  
+        © 2026 LMS SkillUp.
+        All rights reserved.
+  
+      </div>
+  
+    </div>
+  
+  </footer>
