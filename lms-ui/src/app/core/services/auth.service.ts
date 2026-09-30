@@ -34,8 +34,12 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
-  getMyProfile() {
+  // getMyProfile() {
+  //   alert('444')
+  //   return this.http.get('http://localhost:8081/api/users/me');
+  // }
+    getMyProfile() {
     alert('444')
-    return this.http.get('http://localhost:8081/api/users/me');
+    return this.http.get('http://localhost:8081/api/auth/my-dashboard');
   }
 }
