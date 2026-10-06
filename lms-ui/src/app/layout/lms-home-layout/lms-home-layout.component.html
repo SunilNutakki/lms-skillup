@@ -1,0 +1,411 @@
+<div class="lms-home-layout">
+
+    <!-- =========================================================
+         TOPBAR
+         ========================================================= -->
+  
+    <header class="lms-topbar">
+  
+      <!-- LEFT SIDE -->
+  
+      <div class="topbar-left">
+  
+        <!-- Mobile Menu -->
+  
+        <button
+          type="button"
+          class="menu-toggle"
+          (click)="toggleSidebar()"
+          aria-label="Toggle menu">
+  
+          <i class="pi pi-bars"></i>
+  
+        </button>
+  
+  
+        <!-- Logo -->
+  
+        <a
+          routerLink="/admin/dashboard"
+          class="lms-logo">
+  
+          <span class="logo-icon">
+            <i class="pi pi-graduation-cap"></i>
+          </span>
+  
+          <span class="logo-text">
+            LMS SkillUp
+          </span>
+  
+        </a>
+  
+  
+        <!-- Global Search -->
+  
+        <div class="global-search">
+  
+          <i class="pi pi-search"></i>
+  
+          <input
+            pInputText
+            type="text"
+            placeholder="Search courses, modules, content..." />
+  
+        </div>
+  
+      </div>
+  
+  
+      <!-- RIGHT SIDE -->
+  
+      <div class="topbar-right">
+  
+        <!-- Notification -->
+  
+        <button
+          type="button"
+          class="notification-button"
+          aria-label="Notifications">
+  
+          <i class="pi pi-bell"></i>
+  
+          <span class="notification-badge">
+            3
+          </span>
+  
+        </button>
+  
+  
+        <!-- User -->
+  
+        <button
+          type="button"
+          class="user-menu">
+  
+          <span class="user-avatar">
+            A
+          </span>
+  
+          <span class="user-name">
+            Admin
+          </span>
+  
+          <i class="pi pi-angle-down"></i>
+  
+        </button>
+  
+      </div>
+  
+    </header>
+  
+  
+    <!-- =========================================================
+         BODY
+         ========================================================= -->
+  
+    <div class="lms-body">
+  
+  
+      <!-- =======================================================
+           SIDEBAR
+           ======================================================= -->
+  
+      <aside
+        class="lms-sidebar"
+        [class.sidebar-open]="sidebarOpen">
+  
+  
+        <!-- Sidebar Navigation -->
+  
+        <nav class="sidebar-navigation">
+  
+  
+          <!-- Dashboard -->
+  
+          <a
+            routerLink="/admin/dashboard"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="menu-item"
+            (click)="closeSidebar()">
+  
+            <i class="pi pi-home"></i>
+  
+            <span>
+              Dashboard
+            </span>
+  
+          </a>
+  
+  
+          <!-- Courses -->
+  
+          <div class="menu-section">
+  
+            <div class="menu-item menu-parent active-parent">
+  
+              <i class="pi pi-book"></i>
+  
+              <span>
+                Courses
+              </span>
+  
+              <i class="pi pi-angle-up menu-arrow"></i>
+  
+            </div>
+  
+  
+            <div class="submenu">
+  
+              <a
+                routerLink="/tutor/dashboard/courses"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="submenu-item"
+                (click)="closeSidebar()">
+  
+                <i class="pi pi-list"></i>
+  
+                <span>
+                  Course List
+                </span>
+  
+              </a>
+  
+  
+              <a
+                routerLink="/admin/courses/add"
+                routerLinkActive="active"
+                class="submenu-item"
+                (click)="closeSidebar()">
+  
+                <i class="pi pi-plus-circle"></i>
+  
+                <span>
+                  Add Course
+                </span>
+  
+              </a>
+  
+            </div>
+  
+          </div>
+  
+  
+          <!-- Modules -->
+  
+          <a
+            routerLink="/admin/modules"
+            routerLinkActive="active"
+            class="menu-item"
+            (click)="closeSidebar()">
+  
+            <i class="pi pi-th-large"></i>
+  
+            <span>
+              Modules
+            </span>
+  
+          </a>
+  
+  
+          <!-- Learning Content -->
+  
+          <div class="menu-section">
+  
+            <div class="menu-item menu-parent">
+  
+              <i class="pi pi-video"></i>
+  
+              <span>
+                Learning Content
+              </span>
+  
+              <i class="pi pi-angle-down menu-arrow"></i>
+  
+            </div>
+  
+          </div>
+  
+  
+          <!-- Videos -->
+  
+          <a
+            routerLink="/admin/content/videos"
+            routerLinkActive="active"
+            class="menu-item child-menu-item"
+            (click)="closeSidebar()">
+  
+            <i class="pi pi-play-circle"></i>
+  
+            <span>
+              Videos
+            </span>
+  
+          </a>
+  
+  
+          <!-- Notes -->
+  
+          <a
+            routerLink="/admin/content/materials"
+            routerLinkActive="active"
+            class="menu-item child-menu-item"
+            (click)="closeSidebar()">
+  
+            <i class="pi pi-file"></i>
+  
+            <span>
+              Notes / Materials
+            </span>
+  
+          </a>
+  
+  
+          <!-- Practice -->
+  
+          <a
+            routerLink="/admin/practice"
+            routerLinkActive="active"
+            class="menu-item"
+            (click)="closeSidebar()">
+  
+            <i class="pi pi-code"></i>
+  
+            <span>
+              Practice Exercises
+            </span>
+  
+          </a>
+  
+  
+          <!-- Interview -->
+  
+          <a
+            routerLink="/admin/interview-questions"
+            routerLinkActive="active"
+            class="menu-item"
+            (click)="closeSidebar()">
+  
+            <i class="pi pi-question-circle"></i>
+  
+            <span>
+              Interview Questions
+            </span>
+  
+          </a>
+  
+  
+          <!-- Quiz -->
+  
+          <a
+            routerLink="/admin/quizzes"
+            routerLinkActive="active"
+            class="menu-item"
+            (click)="closeSidebar()">
+  
+            <i class="pi pi-list-check"></i>
+  
+            <span>
+              Quiz Management
+            </span>
+  
+          </a>
+  
+  
+          <!-- Publish -->
+  
+          <a
+            routerLink="/admin/publish"
+            routerLinkActive="active"
+            class="menu-item"
+            (click)="closeSidebar()">
+  
+            <i class="pi pi-send"></i>
+  
+            <span>
+              Publish / Manage
+            </span>
+  
+          </a>
+  
+  
+          <!-- Reports -->
+  
+          <a
+            routerLink="/admin/reports"
+            routerLinkActive="active"
+            class="menu-item"
+            (click)="closeSidebar()">
+  
+            <i class="pi pi-chart-bar"></i>
+  
+            <span>
+              Reports
+            </span>
+  
+          </a>
+  
+  
+          <!-- Users -->
+  
+          <a
+            routerLink="/admin/users"
+            routerLinkActive="active"
+            class="menu-item"
+            (click)="closeSidebar()">
+  
+            <i class="pi pi-users"></i>
+  
+            <span>
+              Users
+            </span>
+  
+          </a>
+  
+  
+          <!-- Settings -->
+  
+          <a
+            routerLink="/admin/settings"
+            routerLinkActive="active"
+            class="menu-item"
+            (click)="closeSidebar()">
+  
+            <i class="pi pi-cog"></i>
+  
+            <span>
+              Settings
+            </span>
+  
+          </a>
+  
+        </nav>
+  
+      </aside>
+  
+  
+      <!-- =======================================================
+           MOBILE OVERLAY
+           ======================================================= -->
+  
+      <div
+        class="sidebar-overlay"
+        *ngIf="sidebarOpen"
+        (click)="closeSidebar()">
+      </div>
+  
+  
+      <!-- =======================================================
+           MAIN CONTENT
+           ======================================================= -->
+  
+      <main class="lms-main-content">
+  
+        <router-outlet></router-outlet>
+  
+      </main>
+  
+    </div>
+  
+  </div>

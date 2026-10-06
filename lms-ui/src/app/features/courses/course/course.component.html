@@ -1,0 +1,741 @@
+<div class="courses-page">
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+  
+    <div class="page-header">
+  
+      <div class="page-title-section">
+  
+        <h1>Courses</h1>
+  
+        <div class="breadcrumb">
+  
+          <span>Dashboard</span>
+  
+          <i class="pi pi-angle-right"></i>
+  
+          <span>Courses</span>
+  
+          <i class="pi pi-angle-right"></i>
+  
+          <strong>Course List</strong>
+  
+        </div>
+  
+      </div>
+  
+  
+      <button
+        type="button"
+        class="primary-btn add-course-btn"
+        (click)="openAddCourse()">
+  
+        <i class="pi pi-plus"></i>
+  
+        <span>Add Course</span>
+  
+      </button>
+  
+    </div>
+  
+  
+    <!-- =====================================================
+         STATISTICS
+    ====================================================== -->
+  
+    <div class="statistics">
+  
+      <!-- TOTAL COURSES -->
+  
+      <div class="stat-card">
+  
+        <div class="stat-icon purple">
+          <i class="pi pi-book"></i>
+        </div>
+  
+        <div class="stat-content">
+  
+          <span>Total Courses</span>
+  
+          <strong>
+            {{ totalCourses }}
+          </strong>
+  
+        </div>
+  
+      </div>
+  
+  
+      <!-- PUBLISHED -->
+  
+      <div class="stat-card">
+  
+        <div class="stat-icon green">
+          <i class="pi pi-check-circle"></i>
+        </div>
+  
+        <div class="stat-content">
+  
+          <span>Published</span>
+  
+          <strong>
+            {{ publishedCourses }}
+          </strong>
+  
+        </div>
+  
+      </div>
+  
+  
+      <!-- DRAFT -->
+  
+      <div class="stat-card">
+  
+        <div class="stat-icon yellow">
+          <i class="pi pi-clock"></i>
+        </div>
+  
+        <div class="stat-content">
+  
+          <span>Draft</span>
+  
+          <strong>
+            {{ draftCourses }}
+          </strong>
+  
+        </div>
+  
+      </div>
+  
+  
+      <!-- TOTAL LEARNERS -->
+  
+      <div class="stat-card">
+  
+        <div class="stat-icon blue">
+          <i class="pi pi-users"></i>
+        </div>
+  
+        <div class="stat-content">
+  
+          <span>Total Learners</span>
+  
+          <strong>
+            {{ totalLearners | number }}
+          </strong>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  
+  
+    <!-- =====================================================
+         MAIN CONTENT
+         TABLE + EDIT FORM
+    ====================================================== -->
+  
+    <div
+      class="course-main-layout"
+      [class.form-open]="showCourseForm">
+  
+  
+      <!-- ===================================================
+           COURSE LIST
+      ==================================================== -->
+  
+      <div class="course-list-panel">
+  
+  
+        <!-- COURSE LIST HEADER -->
+  
+        <div class="course-list-header">
+  
+          <div class="course-list-title">
+  
+            <h2>Course List</h2>
+  
+            <p>
+              Manage and maintain your courses
+            </p>
+  
+          </div>
+  
+  
+          <!-- FILTERS -->
+  
+          <div class="course-filters">
+  
+  
+            <!-- SEARCH -->
+  
+            <div class="search-box">
+  
+              <i class="pi pi-search"></i>
+  
+              <input
+                type="text"
+                pInputText
+                [(ngModel)]="searchText"
+                placeholder="Search courses..."
+              />
+  
+            </div>
+  
+  
+            <!-- STATUS -->
+  
+            <select
+              class="status-filter"
+              [(ngModel)]="selectedStatus">
+  
+              <option value="">
+                All Status
+              </option>
+  
+              <option value="Published">
+                Published
+              </option>
+  
+              <option value="Draft">
+                Draft
+              </option>
+  
+            </select>
+  
+  
+            <!-- CLEAR -->
+  
+            <button
+              *ngIf="searchText || selectedStatus"
+              type="button"
+              class="clear-btn"
+              (click)="clearFilters()">
+  
+              <i class="pi pi-filter-slash"></i>
+  
+              <span>Clear</span>
+  
+            </button>
+  
+          </div>
+  
+        </div>
+  
+  
+        <!-- =================================================
+             TABLE
+        ================================================== -->
+  
+        <div class="table-wrapper">
+  
+          <p-table
+            [value]="filteredCourses"
+            [paginator]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            responsiveLayout="scroll"
+            styleClass="courses-table">
+  
+  
+            <!-- HEADER -->
+  
+            <ng-template pTemplate="header">
+  
+              <tr>
+  
+                <th class="index-column">
+                  #
+                </th>
+  
+                <th class="course-column">
+                  Course Name
+                </th>
+  
+                <th>
+                  Level
+                </th>
+  
+                <th>
+                  Technology
+                </th>
+  
+                <th>
+                  Status
+                </th>
+  
+                <th>
+                  Created Date
+                </th>
+  
+                <th class="actions-column">
+                  Actions
+                </th>
+  
+              </tr>
+  
+            </ng-template>
+  
+  
+            <!-- BODY -->
+  
+            <ng-template
+              pTemplate="body"
+              let-course
+              let-rowIndex="rowIndex">
+  
+              <tr>
+  
+  
+                <!-- INDEX -->
+  
+                <td class="index-column">
+  
+                  {{ rowIndex + 1 }}
+  
+                </td>
+  
+  
+                <!-- COURSE -->
+  
+                <td>
+  
+                  <div class="course-name">
+  
+                    <div class="course-image">
+  
+                      <img
+                        *ngIf="course.image"
+                        [src]="course.image"
+                        [alt]="course.courseName"
+                      />
+  
+                      <i
+                        *ngIf="!course.image"
+                        class="pi pi-book">
+                      </i>
+  
+                    </div>
+  
+  
+                    <div class="course-details">
+  
+                      <strong>
+                        {{ course.courseName }}
+                      </strong>
+  
+                      <span *ngIf="course.courseId">
+                        {{ course.courseId }}
+                      </span>
+  
+                    </div>
+  
+                  </div>
+  
+                </td>
+  
+  
+                <!-- LEVEL -->
+  
+                <td>
+  
+                  <span class="level-badge">
+                    {{ course.level }}
+                  </span>
+  
+                </td>
+  
+  
+                <!-- TECHNOLOGY -->
+  
+                <td>
+  
+                  <span class="technology-badge">
+                    {{ course.technology }}
+                  </span>
+  
+                </td>
+  
+  
+                <!-- STATUS -->
+  
+                <td>
+  
+                  <span
+                    class="status-badge"
+                    [class.published]="course.status === 'Published'"
+                    [class.draft]="course.status === 'Draft'">
+  
+                    <i
+                      class="pi"
+                      [class.pi-check-circle]="course.status === 'Published'"
+                      [class.pi-clock]="course.status === 'Draft'">
+                    </i>
+  
+                    {{ course.status }}
+  
+                  </span>
+  
+                </td>
+  
+  
+                <!-- CREATED DATE -->
+  
+                <td>
+  
+                  <span class="created-date">
+                    {{ course.createdDate }}
+                  </span>
+  
+                </td>
+  
+  
+                <!-- ACTIONS -->
+  
+                <td class="actions-column">
+  
+                  <div class="action-buttons">
+  
+  
+                    <!-- VIEW -->
+  
+                    <button
+                      type="button"
+                      class="icon-btn view"
+                      title="View Course"
+                      (click)="viewCourse(course)">
+  
+                      <i class="pi pi-eye"></i>
+  
+                    </button>
+  
+  
+                    <!-- EDIT -->
+  
+                    <button
+                      type="button"
+                      class="icon-btn edit"
+                      title="Edit Course"
+                      (click)="editCourse(course)">
+  
+                      <i class="pi pi-pencil"></i>
+  
+                    </button>
+  
+  
+                    <!-- DELETE -->
+  
+                    <button
+                      type="button"
+                      class="icon-btn delete"
+                      title="Delete Course"
+                      (click)="deleteCourse(course)">
+  
+                      <i class="pi pi-trash"></i>
+  
+                    </button>
+  
+                  </div>
+  
+                </td>
+  
+              </tr>
+  
+            </ng-template>
+  
+  
+            <!-- EMPTY -->
+  
+            <ng-template pTemplate="emptymessage">
+  
+              <tr>
+  
+                <td
+                  colspan="7"
+                  class="empty-table">
+  
+                  <div class="empty-state">
+  
+                    <div class="empty-icon">
+  
+                      <i class="pi pi-search"></i>
+  
+                    </div>
+  
+                    <h3>
+                      No courses found
+                    </h3>
+  
+                    <p>
+                      Try changing your search or status filter.
+                    </p>
+  
+                    <button
+                      type="button"
+                      class="secondary-btn"
+                      (click)="clearFilters()">
+  
+                      <i class="pi pi-filter-slash"></i>
+  
+                      Clear Filters
+  
+                    </button>
+  
+                  </div>
+  
+                </td>
+  
+              </tr>
+  
+            </ng-template>
+  
+          </p-table>
+  
+        </div>
+  
+      </div>
+  
+  
+      <!-- ===================================================
+           ADD / EDIT COURSE
+      ==================================================== -->
+  
+      <div
+        class="course-form-panel"
+        *ngIf="showCourseForm">
+  
+  
+        <!-- FORM HEADER -->
+  
+        <div class="form-header">
+  
+          <div>
+  
+            <h2>
+              {{ editMode ? 'Edit Course' : 'Add Course' }}
+            </h2>
+  
+            <p>
+              {{
+                editMode
+                  ? 'Update course information'
+                  : 'Create a new course'
+              }}
+            </p>
+  
+          </div>
+  
+  
+          <button
+            type="button"
+            class="form-close-btn"
+            title="Close"
+            (click)="resetForm()">
+  
+            <i class="pi pi-times"></i>
+  
+          </button>
+  
+        </div>
+  
+  
+        <!-- FORM BODY -->
+  
+        <div class="course-form-body">
+  
+  
+          <!-- COURSE NAME -->
+  
+          <div class="form-field">
+  
+            <label for="courseName">
+  
+              Course Name
+  
+              <span class="required">*</span>
+  
+            </label>
+  
+            <input
+              id="courseName"
+              type="text"
+              pInputText
+              [(ngModel)]="courseForm.courseName"
+              placeholder="Enter course name"
+            />
+  
+          </div>
+  
+  
+          <!-- DESCRIPTION -->
+  
+          <div class="form-field">
+  
+            <label for="description">
+              Description
+            </label>
+  
+            <textarea
+              id="description"
+              rows="5"
+              [(ngModel)]="courseForm.description"
+              placeholder="Enter course description">
+            </textarea>
+  
+          </div>
+  
+  
+          <!-- LEVEL -->
+  
+          <div class="form-field">
+  
+            <label for="level">
+  
+              Level
+  
+              <span class="required">*</span>
+  
+            </label>
+  
+            <select
+              id="level"
+              [(ngModel)]="courseForm.level">
+  
+              <option value="">
+                Select Level
+              </option>
+  
+              <option
+                *ngFor="let level of levels"
+                [value]="level">
+  
+                {{ level }}
+  
+              </option>
+  
+            </select>
+  
+          </div>
+  
+  
+          <!-- TECHNOLOGY -->
+  
+          <div class="form-field">
+  
+            <label for="technology">
+  
+              Technology
+  
+              <span class="required">*</span>
+  
+            </label>
+  
+            <select
+              id="technology"
+              [(ngModel)]="courseForm.technology">
+  
+              <option value="">
+                Select Technology
+              </option>
+  
+              <option
+                *ngFor="let technology of technologies"
+                [value]="technology">
+  
+                {{ technology }}
+  
+              </option>
+  
+            </select>
+  
+          </div>
+  
+  
+          <!-- STATUS -->
+  
+          <div class="form-field">
+  
+            <label for="status">
+              Status
+            </label>
+  
+            <select
+              id="status"
+              [(ngModel)]="courseForm.status">
+  
+              <option value="Draft">
+                Draft
+              </option>
+  
+              <option value="Published">
+                Published
+              </option>
+  
+            </select>
+  
+          </div>
+  
+  
+          <!-- IMAGE -->
+  
+          <div class="form-field">
+  
+            <label for="courseImage">
+              Course Image
+            </label>
+  
+            <input
+              id="courseImage"
+              type="file"
+              accept="image/*"
+              (change)="onImageSelected($event)"
+            />
+  
+          </div>
+  
+        </div>
+  
+  
+        <!-- FORM FOOTER -->
+  
+        <div class="form-footer">
+  
+          <button
+            type="button"
+            class="secondary-btn"
+            (click)="resetForm()">
+  
+            Cancel
+  
+          </button>
+  
+  
+          <button
+            type="button"
+            class="primary-btn"
+            (click)="saveCourse()">
+  
+            <i
+              class="pi"
+              [class.pi-save]="!editMode"
+              [class.pi-check]="editMode">
+            </i>
+  
+            <span>
+              {{ editMode ? 'Update Course' : 'Save Course' }}
+            </span>
+  
+          </button>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  
+  </div>

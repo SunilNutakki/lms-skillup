@@ -1,0 +1,661 @@
+/* ============================================================
+   ROOT
+   ============================================================ */
+
+   :host {
+    display: block;
+    min-height: 100vh;
+  }
+  
+  .lms-home-layout {
+    min-height: 100vh;
+    background: #f5f7fb;
+  }
+  
+  
+  /* ============================================================
+     TOPBAR
+     ============================================================ */
+  
+  .lms-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  
+    height: 64px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    padding: 0 20px;
+  
+    background: #ffffff;
+  
+    border-bottom: 1px solid #e5e7eb;
+  
+    z-index: 1200;
+  }
+  
+  
+  /* ============================================================
+     TOPBAR LEFT
+     ============================================================ */
+  
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  
+    min-width: 0;
+  }
+  
+  
+  /* ============================================================
+     MENU TOGGLE
+     ============================================================ */
+  
+  .menu-toggle {
+    width: 38px;
+    height: 38px;
+  
+    display: none;
+  
+    align-items: center;
+    justify-content: center;
+  
+    border: 0;
+    background: transparent;
+  
+    border-radius: 8px;
+  
+    cursor: pointer;
+  
+    color: #17263d;
+  
+    font-size: 18px;
+  }
+  
+  .menu-toggle:hover {
+    background: #f1f3f7;
+  }
+  
+  
+  /* ============================================================
+     LOGO
+     ============================================================ */
+  
+  .lms-logo {
+    display: flex;
+    align-items: center;
+  
+    gap: 9px;
+  
+    text-decoration: none;
+  
+    white-space: nowrap;
+  }
+  
+  
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border-radius: 10px;
+  
+    background: linear-gradient(
+      135deg,
+      #5965f2,
+      #7148e8
+    );
+  
+    color: #ffffff;
+  
+    font-size: 18px;
+  }
+  
+  
+  .logo-text {
+    font-size: 17px;
+    font-weight: 700;
+  
+    color: #17263d;
+  }
+  
+  
+  /* ============================================================
+     GLOBAL SEARCH
+     ============================================================ */
+  
+  .global-search {
+    width: 385px;
+    height: 38px;
+  
+    display: flex;
+    align-items: center;
+  
+    gap: 9px;
+  
+    padding: 0 12px;
+  
+    background: #f5f7fa;
+  
+    border-radius: 8px;
+  
+    color: #8a94a6;
+  }
+  
+  .global-search i {
+    font-size: 14px;
+  }
+  
+  .global-search input {
+    width: 100%;
+  
+    border: 0;
+    outline: 0;
+  
+    background: transparent;
+  
+    font-size: 13px;
+  
+    box-shadow: none;
+  }
+  
+  
+  /* ============================================================
+     TOPBAR RIGHT
+     ============================================================ */
+  
+  .topbar-right {
+    display: flex;
+    align-items: center;
+  
+    gap: 18px;
+  }
+  
+  
+  /* ============================================================
+     NOTIFICATION
+     ============================================================ */
+  
+  .notification-button {
+    position: relative;
+  
+    width: 38px;
+    height: 38px;
+  
+    border: 0;
+  
+    background: transparent;
+  
+    border-radius: 8px;
+  
+    cursor: pointer;
+  
+    color: #17263d;
+  
+    font-size: 17px;
+  }
+  
+  .notification-button:hover {
+    background: #f3f5f8;
+  }
+  
+  
+  .notification-badge {
+    position: absolute;
+  
+    top: 2px;
+    right: 2px;
+  
+    min-width: 15px;
+    height: 15px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    padding: 0 4px;
+  
+    background: #ef4444;
+  
+    color: #ffffff;
+  
+    border-radius: 10px;
+  
+    font-size: 9px;
+    font-weight: 700;
+  }
+  
+  
+  /* ============================================================
+     USER
+     ============================================================ */
+  
+  .user-menu {
+    display: flex;
+    align-items: center;
+  
+    gap: 8px;
+  
+    border: 0;
+  
+    background: transparent;
+  
+    cursor: pointer;
+  
+    color: #17263d;
+  
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  
+  .user-avatar {
+    width: 34px;
+    height: 34px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border-radius: 50%;
+  
+    background: #e8ecff;
+  
+    color: #4f46e5;
+  
+    font-weight: 700;
+  }
+  
+  
+  .user-menu i {
+    font-size: 12px;
+  }
+  
+  
+  /* ============================================================
+     BODY
+     ============================================================ */
+  
+  .lms-body {
+    min-height: 100vh;
+  
+    padding-top: 64px;
+  }
+  
+  
+  /* ============================================================
+     SIDEBAR
+     ============================================================ */
+  
+  .lms-sidebar {
+    position: fixed;
+  
+    top: 64px;
+    bottom: 0;
+    left: 0;
+  
+    width: 220px;
+  
+    background: #17263d;
+  
+    overflow-y: auto;
+  
+    z-index: 1100;
+  
+    scrollbar-width: thin;
+  }
+  
+  
+  /* ============================================================
+     SIDEBAR NAVIGATION
+     ============================================================ */
+  
+  .sidebar-navigation {
+    padding: 18px 10px 30px;
+  }
+  
+  
+  /* ============================================================
+     MENU ITEM
+     ============================================================ */
+  
+  .menu-item {
+    position: relative;
+  
+    min-height: 44px;
+  
+    display: flex;
+    align-items: center;
+  
+    gap: 13px;
+  
+    padding: 0 14px;
+  
+    margin-bottom: 4px;
+  
+    border-radius: 8px;
+  
+    color: #d8deea;
+  
+    text-decoration: none;
+  
+    font-size: 13px;
+  
+    cursor: pointer;
+  
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
+  }
+  
+  
+  .menu-item i:first-child {
+    width: 18px;
+  
+    text-align: center;
+  
+    font-size: 15px;
+  }
+  
+  
+  .menu-item:hover {
+    background: #233653;
+  
+    color: #ffffff;
+  }
+  
+  
+  .menu-item.active {
+    background: linear-gradient(
+      90deg,
+      #4e5be9,
+      #5b55ed
+    );
+  
+    color: #ffffff;
+  }
+  
+  
+  .active-parent {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+  }
+  
+  
+  .menu-arrow {
+    margin-left: auto;
+  
+    font-size: 11px !important;
+  }
+  
+  
+  /* ============================================================
+     SUBMENU
+     ============================================================ */
+  
+  .submenu {
+    padding: 2px 0 7px 35px;
+  }
+  
+  
+  .submenu-item {
+    min-height: 38px;
+  
+    display: flex;
+    align-items: center;
+  
+    gap: 9px;
+  
+    padding: 0 10px;
+  
+    border-radius: 7px;
+  
+    color: #b8c2d4;
+  
+    text-decoration: none;
+  
+    font-size: 12px;
+  }
+  
+  
+  .submenu-item:hover {
+    color: #ffffff;
+    background: #233653;
+  }
+  
+  
+  .submenu-item.active {
+    color: #ffffff;
+  
+    background: rgba(87, 96, 235, 0.45);
+  }
+  
+  
+  .submenu-item i {
+    font-size: 12px;
+  }
+  
+  
+  /* ============================================================
+     CHILD MENU
+     ============================================================ */
+  
+  .child-menu-item {
+    padding-left: 30px;
+  }
+  
+  
+  /* ============================================================
+     MAIN CONTENT
+     ============================================================ */
+  
+  .lms-main-content {
+    margin-left: 220px;
+  
+    min-height: calc(100vh - 64px);
+  
+    padding: 24px;
+  
+    background: #f5f7fb;
+  }
+  
+  
+  /* ============================================================
+     OVERLAY
+     ============================================================ */
+  
+  .sidebar-overlay {
+    display: none;
+  }
+  
+  
+  /* ============================================================
+     TABLET
+     ============================================================ */
+  
+  @media (max-width: 1024px) {
+  
+    .global-search {
+      width: 280px;
+    }
+  
+    .lms-sidebar {
+      width: 200px;
+    }
+  
+    .lms-main-content {
+      margin-left: 200px;
+  
+      padding: 20px;
+    }
+  
+  }
+  
+  
+  /* ============================================================
+     MOBILE
+     ============================================================ */
+  
+  @media (max-width: 768px) {
+  
+    /* TOPBAR */
+  
+    .lms-topbar {
+      height: 60px;
+  
+      padding: 0 12px;
+    }
+  
+  
+    .topbar-left {
+      gap: 8px;
+    }
+  
+  
+    .menu-toggle {
+      display: flex;
+    }
+  
+  
+    .logo-text {
+      font-size: 15px;
+    }
+  
+  
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+  
+      font-size: 16px;
+    }
+  
+  
+    .global-search {
+      display: none;
+    }
+  
+  
+    .topbar-right {
+      gap: 6px;
+    }
+  
+  
+    .user-name {
+      display: none;
+    }
+  
+  
+    .user-menu {
+      gap: 0;
+    }
+  
+  
+    .user-menu > i {
+      display: none;
+    }
+  
+  
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+    }
+  
+  
+    /* BODY */
+  
+    .lms-body {
+      padding-top: 60px;
+    }
+  
+  
+    /* SIDEBAR */
+  
+    .lms-sidebar {
+      top: 60px;
+  
+      width: 275px;
+  
+      transform: translateX(-100%);
+  
+      transition: transform 0.25s ease;
+  
+      box-shadow: 8px 0 25px rgba(0, 0, 0, 0.15);
+    }
+  
+  
+    .lms-sidebar.sidebar-open {
+      transform: translateX(0);
+    }
+  
+  
+    /* OVERLAY */
+  
+    .sidebar-overlay {
+      display: block;
+  
+      position: fixed;
+  
+      top: 60px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+  
+      background: rgba(0, 0, 0, 0.35);
+  
+      z-index: 1050;
+    }
+  
+  
+    /* CONTENT */
+  
+    .lms-main-content {
+      margin-left: 0;
+  
+      min-height: calc(100vh - 60px);
+  
+      padding: 16px;
+    }
+  
+  }
+  
+  
+  /* ============================================================
+     SMALL MOBILE
+     ============================================================ */
+  
+  @media (max-width: 480px) {
+  
+    .lms-topbar {
+      padding: 0 8px;
+    }
+  
+  
+    .logo-text {
+      display: none;
+    }
+  
+  
+    .topbar-left {
+      gap: 4px;
+    }
+  
+  
+    .notification-button {
+      width: 34px;
+      height: 34px;
+    }
+  
+  
+    .lms-main-content {
+      padding: 12px;
+    }
+  
+  }
