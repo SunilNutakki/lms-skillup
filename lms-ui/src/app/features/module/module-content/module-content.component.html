@@ -1,0 +1,49 @@
+﻿<div class="content-page">
+  <header class="page-header">
+    <div>
+      <h1>Module Content</h1>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <span>Dashboard</span><i class="pi pi-angle-right"></i><span>Courses</span><i class="pi pi-angle-right"></i>
+        <span>{{ courseName }}</span><i class="pi pi-angle-right"></i><span>Modules</span><i class="pi pi-angle-right"></i>
+        <span>{{ moduleName }}</span><i class="pi pi-angle-right"></i><strong>Module Content</strong>
+      </nav>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-light" type="button" (click)="goBack()"><i class="pi pi-arrow-left"></i> Back to Modules</button>
+      <button class="btn btn-primary" type="button" (click)="openAdd()"><i class="pi pi-plus"></i> Add Content</button>
+    </div>
+  </header>
+
+  <section class="module-summary card">
+    <div class="java-icon"><i class="pi pi-code"></i><span>Java</span></div>
+    <div class="summary-main"><div class="summary-title"><h2>{{ courseName }}</h2><span class="status published">Published</span></div><p>{{ courseDescription }}</p>
+      <div class="summary-meta"><div><small><i class="pi pi-book"></i> Module</small><strong>{{ moduleName }}</strong></div><div><small><i class="pi pi-sort-numeric-up"></i> Order</small><strong>3</strong></div><div><small><i class="pi pi-check-circle"></i> Status</small><strong class="status published">Published</strong></div></div>
+    </div>
+  </section>
+
+  <main class="content-layout" [class.form-open]="formOpen">
+    <section class="list-panel card">
+      <div class="list-header"><h2>Content List</h2><div class="filters">
+        <label class="search"><i class="pi pi-search"></i><input [(ngModel)]="searchText" placeholder="Search content by title..." /></label>
+        <select aria-label="Filter by status" [(ngModel)]="selectedStatus"><option value="">All Status</option><option>Published</option><option>Draft</option></select>
+      </div></div>
+      <div class="tabs" role="tablist"><button *ngFor="let tab of tabs" type="button" [class.active]="activeTab === tab" (click)="setTab(tab)">{{ tab }} <span>({{ countFor(tab) }})</span></button></div>
+      <div class="table-wrap"><p-table [value]="filteredContents" [paginator]="true" [rows]="5" responsiveLayout="scroll" styleClass="content-table">
+        <ng-template pTemplate="header"><tr><th>#</th><th>Title</th><th>Type</th><th>Description</th><th>File / Link</th><th>Order</th><th>Status</th><th>Actions</th></tr></ng-template>
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex"><tr><td>{{ rowIndex + 1 }}</td><td class="title-cell">{{ item.title }}</td><td><span class="type" [ngClass]="item.type.toLowerCase().replace(' / ', '-')">{{ item.type }}</span></td><td>{{ item.description }}</td><td><button type="button" class="file-btn" (click)="viewContent(item)"><i class="pi pi-play"></i> {{ item.type === 'Video' ? 'Watch' : item.type === 'PDF / Notes' ? 'Download' : 'View' }}</button></td><td>{{ item.order }}</td><td><span class="status" [class.published]="item.status === 'Published'" [class.draft]="item.status === 'Draft'">{{ item.status }}</span></td><td><div class="row-actions"><button type="button" title="View" (click)="viewContent(item)"><i class="pi pi-eye"></i></button><button type="button" title="Edit" (click)="editContent(item)"><i class="pi pi-pencil"></i></button><button class="delete" type="button" title="Delete" (click)="deleteContent(item)"><i class="pi pi-trash"></i></button></div></td></tr></ng-template>
+        <ng-template pTemplate="emptymessage"><tr><td colspan="8" class="empty">No content found. Try changing your search or filters.</td></tr></ng-template>
+      </p-table></div>
+    </section>
+
+    <aside class="form-panel card" *ngIf="formOpen">
+      <div class="form-heading"><div><h2>{{ editMode ? 'Edit Content' : 'Add Content' }}</h2><p>Manage content for {{ moduleName }}</p></div><button type="button" class="close" aria-label="Close" (click)="closeForm()"><i class="pi pi-times"></i></button></div>
+      <form (ngSubmit)="saveContent()"><div class="form-body">
+        <label>Content Type <b>*</b><div class="type-options"><button *ngFor="let type of types" type="button" [class.selected]="form.type === type" (click)="form.type = type"><i class="pi" [ngClass]="type === 'Video' ? 'pi-play' : type === 'PDF / Notes' ? 'pi-file-pdf' : type === 'Practice' ? 'pi-box' : 'pi-users'"></i>{{ type }}</button></div></label>
+        <label>Title <b>*</b><input name="title" [(ngModel)]="form.title" required placeholder="Enter content title" /></label>
+        <label>Description <b>*</b><textarea name="description" [(ngModel)]="form.description" required rows="3" placeholder="Enter description"></textarea></label>
+        <label>Upload {{ form.type === 'Video' ? 'Video' : form.type === 'PDF / Notes' ? 'File' : 'Resource' }} <b>*</b><span class="upload"><i class="pi pi-cloud-upload"></i><span>{{ selectedFile || 'Click to upload or drag and drop' }}<small>{{ form.type === 'Video' ? 'MP4, WebM (Max 500MB)' : 'Choose a file or resource link' }}</small></span><input type="file" (change)="onFileSelected($event)" /></span></label>
+        <div class="form-row"><label>Display Order <b>*</b><input name="order" type="number" min="1" [(ngModel)]="form.order" required /></label><label>Status <b>*</b><select name="status" [(ngModel)]="form.status" required><option value="Draft">Draft</option><option value="Published">Published</option></select></label></div>
+      </div><div class="form-footer"><button class="btn btn-primary" type="submit"><i class="pi pi-save"></i> {{ editMode ? 'Save Changes' : 'Save Content' }}</button><button class="btn btn-light" type="button" (click)="closeForm()"><i class="pi pi-refresh"></i> Reset</button></div></form>
+    </aside>
+  </main>
+</div>

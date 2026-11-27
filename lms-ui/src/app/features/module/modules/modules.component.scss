@@ -1,0 +1,1288 @@
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  .modules-page {
+    width: 100%;
+    min-height: 100%;
+    padding: 24px;
+    background: #f5f7fb;
+    color: #17233b;
+  }
+  
+  
+  /* ==========================================================
+     PAGE HEADER
+  ========================================================== */
+  
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .page-heading h1 {
+    margin: 0 0 7px;
+    font-size: 27px;
+    font-weight: 750;
+    color: #17233b;
+  }
+  
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    color: #71809a;
+    font-size: 12px;
+  }
+  
+  .breadcrumb i {
+    color: #a2adbd;
+    font-size: 10px;
+  }
+  
+  .breadcrumb strong {
+    color: #40516b;
+    font-weight: 600;
+  }
+  
+  .header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  
+  /* ==========================================================
+     BUTTONS
+  ========================================================== */
+  
+  .btn {
+    min-height: 39px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 14px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 650;
+    cursor: pointer;
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  
+  .btn-primary {
+    background: #5b55f6;
+    color: #fff;
+    box-shadow: 0 3px 8px rgba(91, 85, 246, 0.13);
+  }
+  
+  .btn-primary:hover {
+    background: #4c46e8;
+    box-shadow: 0 5px 12px rgba(91, 85, 246, 0.18);
+  }
+  
+  .btn-secondary {
+    background: #fff;
+    color: #53627a;
+    border-color: #dfe5ee;
+  }
+  
+  .btn-secondary:hover {
+    background: #f7f8fc;
+    border-color: #cbd4e2;
+  }
+  
+  
+  /* ==========================================================
+     COURSE SELECTOR
+  ========================================================== */
+  
+  .course-selector-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    background: #fff;
+    border: 1px solid #e6ebf3;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(25, 42, 70, 0.035);
+  }
+  
+  .selector-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+  
+  .selector-icon {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: #efedff;
+    color: #5b55f6;
+    font-size: 18px;
+  }
+  
+  .selector-heading h2 {
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  
+  .selector-heading p {
+    margin: 0;
+    color: #78869b;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  
+  .selector-control {
+    width: min(100%, 330px);
+    flex: 0 1 330px;
+  }
+  
+  .selector-control label {
+    display: block;
+    margin-bottom: 6px;
+    color: #394961;
+    font-size: 12px;
+    font-weight: 650;
+  }
+  
+  
+  /* ==========================================================
+     SHARED SELECT WRAPPER
+  ========================================================== */
+  
+  .select-wrapper {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+  }
+  
+  .select-wrapper select {
+    appearance: none;
+    width: 100%;
+    min-height: 39px;
+    padding: 9px 34px 9px 11px;
+    border: 1px solid #dce3ee;
+    border-radius: 7px;
+    background: #fff;
+    color: #34445e;
+    font-family: inherit;
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .select-wrapper select:focus {
+    border-color: #625bff;
+    box-shadow: 0 0 0 3px rgba(98, 91, 255, 0.09);
+  }
+  
+  .select-wrapper > i {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    color: #71809a;
+    font-size: 11px;
+    pointer-events: none;
+  }
+  
+  
+  /* ==========================================================
+     COURSE SUMMARY
+  ========================================================== */
+  
+  .course-summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 22px;
+    padding: 18px;
+    margin-bottom: 18px;
+    background: #fff;
+    border: 1px solid #e6ebf3;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(25, 42, 70, 0.035);
+  }
+  
+  .course-summary-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    min-width: 0;
+  }
+  
+  .course-image {
+    width: 66px;
+    height: 66px;
+    flex: 0 0 66px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #244e91, #173765);
+    color: #fff;
+    font-size: 26px;
+  }
+  
+  .course-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .course-info {
+    min-width: 0;
+  }
+  
+  .course-title-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-bottom: 7px;
+  }
+  
+  .course-title-row h2 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 750;
+    overflow-wrap: anywhere;
+  }
+  
+  .course-description {
+    margin: 0;
+    color: #687890;
+    font-size: 12px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+  
+  
+  /* ==========================================================
+     STATUS / LEVEL / TECHNOLOGY BADGES
+  ========================================================== */
+  
+  .status-badge,
+  .level-badge,
+  .technology-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: fit-content;
+    max-width: 100%;
+    padding: 5px 9px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  
+  .status-badge.published,
+  .level-badge {
+    background: #e0f7e9;
+    color: #168752;
+  }
+  
+  .status-badge.draft {
+    background: #fff0c9;
+    color: #a96d00;
+  }
+  
+  .technology-badge {
+    background: #eef0ff;
+    color: #4d55bd;
+  }
+  
+  
+  /* ==========================================================
+     COURSE METADATA
+  ========================================================== */
+  
+  .course-metadata {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    min-width: 0;
+  }
+  
+  .metadata-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    min-width: 0;
+    padding: 2px 14px;
+    border-left: 1px solid #e5eaf2;
+  }
+  
+  .metadata-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #75839a;
+    font-size: 11px;
+  }
+  
+  .metadata-label i {
+    color: #7184a0;
+    font-size: 11px;
+  }
+  
+  .metadata-item > strong {
+    color: #24344f;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
+  
+  
+  /* ==========================================================
+     NO COURSE SELECTED
+  ========================================================== */
+  
+  .no-course-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 230px;
+    padding: 30px 20px;
+    margin-bottom: 18px;
+    background: #fff;
+    border: 1px solid #e6ebf3;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .no-course-state h2 {
+    margin: 13px 0 6px;
+    font-size: 17px;
+  }
+  
+  .no-course-state p {
+    max-width: 430px;
+    margin: 0;
+    color: #78869b;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  
+  
+  /* ==========================================================
+     MODULE LAYOUT
+  ========================================================== */
+  
+  .module-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    align-items: start;
+    min-width: 0;
+  }
+  
+  .module-layout.form-open {
+    grid-template-columns: minmax(0, 1.8fr) minmax(310px, 0.9fr);
+  }
+  
+  .module-list-panel,
+  .module-form-panel {
+    min-width: 0;
+    background: #fff;
+    border: 1px solid #e6ebf3;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(25, 42, 70, 0.035);
+    overflow: hidden;
+  }
+  
+  
+  /* ==========================================================
+     MODULE LIST HEADER
+  ========================================================== */
+  
+  .module-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 17px 18px;
+    border-bottom: 1px solid #edf0f5;
+  }
+  
+  .list-heading {
+    min-width: 140px;
+  }
+  
+  .list-heading h2 {
+    margin: 0 0 5px;
+    font-size: 16px;
+    font-weight: 750;
+  }
+  
+  .list-heading p {
+    margin: 0;
+    color: #7b879b;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  
+  
+  /* ==========================================================
+     SEARCH / FILTER
+  ========================================================== */
+  
+  .module-filters {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  
+  .search-box {
+    position: relative;
+    width: 210px;
+    min-width: 0;
+  }
+  
+  .search-box > i {
+    position: absolute;
+    top: 50%;
+    left: 11px;
+    transform: translateY(-50%);
+    color: #8995a8;
+    font-size: 12px;
+    pointer-events: none;
+  }
+  
+  .search-box input {
+    width: 100%;
+    height: 37px;
+    padding: 8px 10px 8px 31px;
+    border: 1px solid #dce3ee;
+    border-radius: 7px;
+    color: #34445e;
+    font-family: inherit;
+    font-size: 11px;
+    outline: none;
+  }
+  
+  .search-box input::placeholder {
+    color: #98a2b3;
+  }
+  
+  .search-box input:focus {
+    border-color: #625bff;
+    box-shadow: 0 0 0 3px rgba(98, 91, 255, 0.08);
+  }
+  
+  .status-filter {
+    width: 125px;
+    flex: 0 0 125px;
+  }
+  
+  .filter-clear-btn {
+    width: 36px;
+    height: 37px;
+    flex: 0 0 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dce3ee;
+    border-radius: 7px;
+    background: #f7f8fc;
+    color: #64748b;
+    cursor: pointer;
+  }
+  
+  .filter-clear-btn:hover {
+    background: #eef1f8;
+  }
+  
+  
+  /* ==========================================================
+     PRIME NG TABLE
+  ========================================================== */
+  
+  .module-table-wrapper {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+  
+  :host ::ng-deep .modules-table {
+    width: 100%;
+  }
+  
+  :host ::ng-deep .modules-table .p-datatable-wrapper {
+    overflow-x: auto;
+  }
+  
+  :host ::ng-deep .modules-table .p-datatable-table {
+    width: 100%;
+    min-width: 690px;
+    border-collapse: collapse;
+  }
+  
+  :host ::ng-deep .modules-table .p-datatable-thead > tr > th {
+    padding: 12px 10px;
+    background: #f7f9fc;
+    color: #33435c;
+    border: 0;
+    border-bottom: 1px solid #e5eaf2;
+    font-size: 11px;
+    font-weight: 750;
+    white-space: nowrap;
+  }
+  
+  :host ::ng-deep .modules-table .p-datatable-tbody > tr > td {
+    padding: 11px 10px;
+    background: #fff;
+    color: #35445d;
+    border: 0;
+    border-bottom: 1px solid #edf0f5;
+    font-size: 11px;
+    vertical-align: middle;
+  }
+  
+  :host ::ng-deep .modules-table .p-datatable-tbody > tr:hover > td {
+    background: #fafbff;
+  }
+  
+  .number-column {
+    width: 38px;
+    text-align: center;
+  }
+  
+  .order-column {
+    width: 60px;
+    text-align: center;
+  }
+  
+  .actions-column {
+    width: 120px;
+    text-align: center;
+  }
+  
+  
+  /* ==========================================================
+     MODULE NAME CELL
+  ========================================================== */
+  
+  .module-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 150px;
+  }
+  
+  .module-icon {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    background: linear-gradient(135deg, #5b55f6, #453bd8);
+    color: #fff;
+    font-size: 15px;
+  }
+  
+  .module-name-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  
+  .module-name-text strong {
+    color: #1c2b43;
+    font-size: 11px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+  }
+  
+  .module-name-text small {
+    color: #8a95a7;
+    font-size: 10px;
+  }
+  
+  .module-description {
+    display: block;
+    max-width: 220px;
+    color: #687890;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+  
+  .order-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 25px;
+    height: 25px;
+    border-radius: 6px;
+    background: #f0f3f8;
+    color: #4b5b73;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  
+  
+  /* ==========================================================
+     ACTION BUTTONS
+  ========================================================== */
+  
+  .action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .icon-btn {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .icon-btn.view {
+    background: #f0f3f8;
+    color: #334d79;
+  }
+  
+  .icon-btn.edit {
+    background: #eaf4ff;
+    color: #2f80ed;
+  }
+  
+  .icon-btn.delete {
+    background: #fff0f0;
+    color: #e54848;
+  }
+  
+  .icon-btn.view:hover {
+    background: #e2e9f4;
+  }
+  
+  .icon-btn.edit:hover {
+    background: #d8eaff;
+  }
+  
+  .icon-btn.delete:hover {
+    background: #ffe0e0;
+  }
+  
+  
+  /* ==========================================================
+     PAGINATION
+  ========================================================== */
+  
+  :host ::ng-deep .modules-table .p-paginator {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 9px 10px;
+    border: 0;
+    border-top: 1px solid #edf0f5;
+    background: #fff;
+  }
+  
+  :host ::ng-deep .modules-table .p-paginator-current {
+    margin-right: auto;
+    color: #71809a;
+    font-size: 11px;
+  }
+  
+  
+  /* ==========================================================
+     EMPTY STATE
+  ========================================================== */
+  
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 210px;
+    padding: 25px 15px;
+    text-align: center;
+  }
+  
+  .empty-icon {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #efedff;
+    color: #5b55f6;
+    font-size: 18px;
+  }
+  
+  .empty-state h3 {
+    margin: 12px 0 5px;
+    color: #263550;
+    font-size: 14px;
+  }
+  
+  .empty-state p {
+    margin: 0 0 13px;
+    color: #8792a5;
+    font-size: 11px;
+    line-height: 1.6;
+  }
+  
+  
+  /* ==========================================================
+     MOBILE MODULE CARDS
+  ========================================================== */
+  
+  .mobile-module-list {
+    display: none;
+  }
+  
+  .mobile-module-card {
+    padding: 14px;
+    border-bottom: 1px solid #edf0f5;
+  }
+  
+  .mobile-module-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+  }
+  
+  .mobile-module-info {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .mobile-module-info h3 {
+    margin: 1px 0 6px;
+    color: #24334d;
+    font-size: 13px;
+    font-weight: 750;
+    overflow-wrap: anywhere;
+  }
+  
+  .mobile-module-info p {
+    margin: 0;
+    color: #748198;
+    font-size: 11px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+  
+  .mobile-module-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 9px;
+  }
+  
+  .mobile-module-meta > span:first-child {
+    color: #65738a;
+    font-size: 10px;
+  }
+  
+  .mobile-module-actions {
+    display: flex;
+    gap: 8px;
+    padding-top: 12px;
+    margin-top: 12px;
+    border-top: 1px solid #f0f2f6;
+  }
+  
+  .mobile-module-actions .icon-btn {
+    width: auto;
+    min-width: 68px;
+    height: 32px;
+    padding: 0 9px;
+    font-size: 11px;
+  }
+  
+  .mobile-empty-state {
+    display: flex;
+  }
+  
+  
+  /* ==========================================================
+     MODULE FORM
+  ========================================================== */
+  
+  .module-form-panel {
+    position: sticky;
+    top: 16px;
+  }
+  
+  .form-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 17px 18px;
+    border-bottom: 1px solid #edf0f5;
+  }
+  
+  .form-header h2 {
+    margin: 0 0 5px;
+    color: #17233b;
+    font-size: 16px;
+    font-weight: 750;
+  }
+  
+  .form-header p {
+    margin: 0;
+    color: #7b879b;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  
+  .form-close-btn {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 6px;
+    background: #f4f6fa;
+    color: #6b7a90;
+    cursor: pointer;
+  }
+  
+  .form-close-btn:hover {
+    background: #e9edf5;
+  }
+  
+  .module-form-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 18px;
+  }
+  
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+  }
+  
+  .form-field label {
+    color: #34435b;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  
+  .form-field label > span {
+    color: #ef4444;
+  }
+  
+  .form-field input:not([type="checkbox"]),
+  .form-field textarea {
+    width: 100%;
+    min-height: 39px;
+    padding: 10px 11px;
+    border: 1px solid #dce3ee;
+    border-radius: 7px;
+    background: #fff;
+    color: #34445e;
+    font-family: inherit;
+    font-size: 12px;
+    outline: none;
+  }
+  
+  .form-field textarea {
+    min-height: 85px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  
+  .form-field input::placeholder,
+  .form-field textarea::placeholder {
+    color: #98a2b3;
+  }
+  
+  .form-field input:focus,
+  .form-field textarea:focus {
+    border-color: #625bff;
+    box-shadow: 0 0 0 3px rgba(98, 91, 255, 0.08);
+  }
+  
+  .form-field input.invalid,
+  .form-field textarea.invalid {
+    border-color: #ef4444;
+  }
+  
+  .field-hint {
+    color: #8792a5;
+    font-size: 10px;
+    line-height: 1.5;
+  }
+  
+  .error-message {
+    color: #dc2626;
+    font-size: 10px;
+    line-height: 1.4;
+  }
+  
+  
+  /* ==========================================================
+     FORM FOOTER
+  ========================================================== */
+  
+  .form-footer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+    gap: 8px;
+    padding: 0 18px 18px;
+  }
+  
+  .form-footer .btn {
+    width: 100%;
+    min-width: 0;
+    padding: 0 9px;
+    font-size: 11px;
+  }
+  
+  .save-module-btn {
+    min-height: 40px;
+  }
+  
+  .reset-btn {
+    min-height: 40px;
+    background: #aeb8c6;
+    color: #fff;
+    border-color: #aeb8c6;
+  }
+  
+  .reset-btn:hover {
+    background: #98a4b5;
+    border-color: #98a4b5;
+  }
+  
+  
+  /* ==========================================================
+     MEDIUM DESKTOP / SMALL LAPTOP
+  ========================================================== */
+  
+  @media (max-width: 1350px) {
+  
+    .modules-page {
+      padding: 20px;
+    }
+  
+    .module-layout.form-open {
+      grid-template-columns: minmax(0, 1.5fr) minmax(290px, 0.9fr);
+    }
+  
+    .module-list-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  
+    .module-filters {
+      width: 100%;
+    }
+  
+    .search-box {
+      flex: 1 1 auto;
+    }
+  
+    .course-summary {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+  
+    .course-metadata {
+      border-top: 1px solid #edf0f5;
+      padding-top: 15px;
+    }
+  
+    .metadata-item:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+  }
+  
+  
+  /* ==========================================================
+     TABLET
+  ========================================================== */
+  
+  @media (max-width: 1050px) {
+  
+    .module-layout,
+    .module-layout.form-open {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  
+    .module-form-panel {
+      position: static;
+    }
+  
+    .course-selector-panel {
+      align-items: stretch;
+      flex-direction: column;
+      gap: 15px;
+    }
+  
+    .selector-control {
+      width: 100%;
+      flex-basis: auto;
+    }
+  
+    .module-list-header {
+      flex-direction: row;
+      align-items: center;
+    }
+  
+    .module-filters {
+      width: auto;
+      flex: 1 1 100%;
+    }
+  
+    .search-box {
+      flex: 1 1 auto;
+    }
+  
+  }
+  
+  
+  /* ==========================================================
+     MOBILE
+  ========================================================== */
+  
+  @media (max-width: 700px) {
+  
+    .modules-page {
+      padding: 16px 12px 25px;
+    }
+  
+    .page-header {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 14px;
+    }
+  
+    .page-heading h1 {
+      font-size: 23px;
+    }
+  
+    .header-actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  
+    .header-actions .btn {
+      min-width: 0;
+      padding: 0 8px;
+      font-size: 11px;
+    }
+  
+    .course-selector-panel {
+      padding: 14px;
+    }
+  
+    .selector-heading p {
+      font-size: 11px;
+    }
+  
+    .course-summary {
+      padding: 14px;
+      gap: 15px;
+    }
+  
+    .course-summary-main {
+      gap: 11px;
+    }
+  
+    .course-image {
+      width: 54px;
+      height: 54px;
+      flex-basis: 54px;
+      font-size: 21px;
+    }
+  
+    .course-title-row h2 {
+      font-size: 15px;
+    }
+  
+    .course-metadata {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px 0;
+    }
+  
+    .metadata-item {
+      padding: 0 10px;
+    }
+  
+    .metadata-item:nth-child(odd) {
+      border-left: 0;
+      padding-left: 0;
+    }
+  
+    .metadata-label {
+      font-size: 10px;
+    }
+  
+    .metadata-item > strong {
+      font-size: 12px;
+    }
+  
+    .module-list-header {
+      align-items: stretch;
+      flex-direction: column;
+      padding: 15px;
+      gap: 13px;
+    }
+  
+    .module-filters {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(100px, 0.65fr) 36px;
+      gap: 6px;
+      width: 100%;
+    }
+  
+    .search-box {
+      width: auto;
+      min-width: 0;
+    }
+  
+    .status-filter {
+      width: 100%;
+      min-width: 0;
+    }
+  
+    .filter-clear-btn {
+      width: 36px;
+    }
+  
+    /* Use cards instead of the wide table on mobile. */
+  
+    .module-table-wrapper {
+      display: none;
+    }
+  
+    .mobile-module-list {
+      display: block;
+    }
+  
+    .module-form-body {
+      padding: 15px;
+      gap: 14px;
+    }
+  
+    .form-header {
+      padding: 15px;
+    }
+  
+    .form-footer {
+      padding: 0 15px 15px;
+    }
+  
+    .no-course-state {
+      min-height: 200px;
+      padding: 24px 16px;
+    }
+  
+  }
+  
+  
+  /* ==========================================================
+     VERY SMALL MOBILE
+  ========================================================== */
+  
+  @media (max-width: 380px) {
+  
+    .modules-page {
+      padding: 12px 8px 20px;
+    }
+  
+    .header-actions {
+      grid-template-columns: 1fr;
+    }
+  
+    .module-filters {
+      grid-template-columns: minmax(0, 1fr) 36px;
+    }
+  
+    .module-filters .status-filter {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+  
+    .module-filters .filter-clear-btn {
+      grid-column: 2;
+      grid-row: 1;
+    }
+  
+    .course-summary-main {
+      align-items: flex-start;
+    }
+  
+    .course-image {
+      width: 45px;
+      height: 45px;
+      flex-basis: 45px;
+      font-size: 18px;
+    }
+  
+    .mobile-module-actions {
+      gap: 5px;
+    }
+  
+    .mobile-module-actions .icon-btn {
+      flex: 1;
+      min-width: 0;
+      padding: 0 5px;
+    }
+  
+    .form-footer {
+      grid-template-columns: 1fr;
+    }
+  
+  }

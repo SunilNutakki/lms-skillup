@@ -16,3 +16,46 @@ body {
 body {
   background: #ffffff;
 }
+
+.p-toast {
+  opacity: 1;
+}
+
+.p-toast-message {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.p-toast-message::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: currentColor;
+  opacity: 0.5;
+  transform-origin: left;
+  animation: toast-timer 4s linear forwards;
+}
+
+@keyframes toast-timer {
+  from {
+    transform: scaleX(1);
+  }
+
+  to {
+    transform: scaleX(0);
+  }
+}
+
+.p-toast.p-toast-bottom-center {
+  position: fixed !important;
+  bottom: 20px !important;
+  top: auto !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  z-index: 99999 !important;
+}

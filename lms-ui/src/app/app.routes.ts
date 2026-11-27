@@ -25,6 +25,13 @@ export const routes: Routes = [
 
     children: [
 
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./features/admin/admin-dashboard/admin-dashboard.component')
+            .then(m => m.AdminDashboardComponent)
+      },
+
       // -------------------------------------------------------
       // Dashboard
       // /admin/dashboard
@@ -57,8 +64,29 @@ export const routes: Routes = [
           {
             path: 'add',
             loadComponent: () =>
-              import('./features/courses/course/course.component')
-                .then(m => m.CoursesComponent)
+              import('./features/courses/add-course/add-course.component')
+                .then(m => m.AddCourseComponent)
+          },
+          {
+            path: 'modules',
+            loadComponent: () =>
+              import('./features/module/modules/modules.component')
+                .then(m => m.ModulesComponent),
+                children: [
+                  {
+                    path: 'add',
+                    outlet: 'modal',
+                    loadComponent: () =>
+                      import('./features/module/add-modules/add-modules.component')
+                        .then(m => m.AddModulesComponent)
+                  }
+                ]
+          },
+          {
+            path: 'module-content',
+            loadComponent: () =>
+              import('./features/module/module-content/module-content.component')
+                .then(m => m.ModuleContentComponent)
           }
 
         ]
@@ -132,6 +160,12 @@ export const routes: Routes = [
     ]
   },
 
+  {
+    path: 'admin/dashboard',
+    redirectTo: 'tutor/dashboard/dashboard',
+    pathMatch: 'full'
+  },
+
 
   // =========================================================
   // DEFAULT / UNKNOWN
@@ -139,7 +173,7 @@ export const routes: Routes = [
 
   {
     path: '**',
-    redirectTo: 'admin/dashboard'
+    redirectTo: 'tutor/dashboard/dashboard'
   }
 
 

@@ -1,0 +1,152 @@
+
+<div class="module-form-container">
+  <form #moduleNgForm="ngForm" (ngSubmit)="saveModule()" novalidate>
+    <div class="form-grid">
+
+      <!-- Course -->
+      <div class="form-field full-width">
+        <label for="courseId">
+          Course <span class="required">*</span>
+        </label>
+
+        <p-select
+          inputId="courseId"
+          name="courseId"
+          [options]="courses"
+          optionLabel="courseName"
+          optionValue="courseId"
+          placeholder="Select course"
+          [(ngModel)]="moduleForm.courseId"
+          [showClear]="true"
+          appendTo="body"
+          styleClass="w-full"
+          [class.p-invalid]="submitted && !moduleForm.courseId">
+        </p-select>
+
+        <small class="error-message"
+          *ngIf="submitted && !moduleForm.courseId">
+          Please select a course.
+        </small>
+      </div>
+
+      <!-- Module Name -->
+      <div class="form-field full-width">
+        <label for="moduleName">
+          Module Name <span class="required">*</span>
+        </label>
+
+        <input
+          pInputText
+          id="moduleName"
+          name="moduleName"
+          [(ngModel)]="moduleForm.moduleName"
+          placeholder="Enter module name"
+          maxlength="150"
+          required
+          class="w-full"
+          [class.p-invalid]="submitted && !moduleForm.moduleName?.trim()" />
+
+        <small class="error-message"
+          *ngIf="submitted && !moduleForm.moduleName?.trim()">
+          Please enter a module name.
+        </small>
+      </div>
+
+      <!-- Description -->
+      <div class="form-field full-width">
+        <label for="description">
+          Description <span class="required">*</span>
+        </label>
+
+        <textarea
+          pTextarea
+          id="description"
+          name="description"
+          [(ngModel)]="moduleForm.description"
+          placeholder="Enter module description"
+          rows="4"
+          maxlength="2000"
+          required
+          class="w-full"
+          [autoResize]="true">
+        </textarea>
+
+        <small class="error-message"
+          *ngIf="submitted && !moduleForm.description?.trim()">
+          Please enter a description.
+        </small>
+      </div>
+
+      <!-- Display Order -->
+      <div class="form-field">
+        <label for="displayOrder">
+          Display Order <span class="required">*</span>
+        </label>
+
+        <p-inputnumber
+          inputId="displayOrder"
+          name="displayOrder"
+          [(ngModel)]="moduleForm.displayOrder"
+          [min]="1"
+          [minFractionDigits]="0"
+          [maxFractionDigits]="0"
+          [useGrouping]="false"
+          placeholder="Enter display order"
+          styleClass="w-full"
+          inputStyleClass="w-full"
+          [class.p-invalid]="submitted && invalidDisplayOrder">
+        </p-inputnumber>
+
+        <small class="error-message"
+          *ngIf="submitted && invalidDisplayOrder">
+          Enter a positive whole number.
+        </small>
+      </div>
+
+      <!-- Status -->
+      <div class="form-field">
+        <label for="status">
+          Status <span class="required">*</span>
+        </label>
+
+        <p-select
+          inputId="status"
+          name="status"
+          [options]="statusOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select status"
+          [(ngModel)]="moduleForm.status"
+          appendTo="body"
+          styleClass="w-full"
+          [class.p-invalid]="submitted && !moduleForm.status">
+        </p-select>
+
+        <small class="error-message"
+          *ngIf="submitted && !moduleForm.status">
+          Please select a status.
+        </small>
+      </div>
+
+    </div>
+
+    <!-- Actions -->
+    <div class="form-footer">
+      <p-button
+        type="button"
+        label="Cancel"
+        icon="pi pi-times"
+        severity="secondary"
+        [outlined]="true"
+        (onClick)="cancelForm()">
+      </p-button>
+
+      <p-button
+        type="submit"
+        [label]="editMode ? 'Update Module' : 'Save Module'"
+        [icon]="editMode ? 'pi pi-check' : 'pi pi-save'">
+      </p-button>
+    </div>
+
+  </form>
+</div>

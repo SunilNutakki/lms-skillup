@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { API_BASE_URL } from '../../../core/services/api.constants';
 
 interface Course {
   courseId: string;
@@ -12,7 +15,10 @@ interface Course {
   level: string;
   technology: string;
   status: string;
-  createdDate: string;
+  levelId?: number;
+  technologyId?: number;
+  statusId?: number;
+  createdAt: any;
   image?: string;
 }
 
@@ -24,19 +30,20 @@ interface Course {
     FormsModule,
     TableModule,
     TooltipModule,
-    InputTextModule
+    InputTextModule,
+    DropdownModule
   ],
   templateUrl: './course.component.html',
   styleUrl: './course.component.scss'
 })
-export class CoursesComponent {
+export class CoursesComponent implements OnInit {
 
   /* ================================
      PAGE STATE
   ================================= */
 
   searchText = '';
-  selectedStatus = 'All Status';
+  selectedStatus = '';
 
   showCourseForm = false;
   editMode = false;
@@ -52,10 +59,10 @@ export class CoursesComponent {
     courseId: '',
     courseName: '',
     description: '',
-    level: '',
-    technology: '',
-    status: 'Draft',
-    createdDate: ''
+    levelId: null as number | null,
+    technologyId: null as number | null,
+    statusId: null as number | null,
+    createdAt: ''
   };
 
 
@@ -63,80 +70,63 @@ export class CoursesComponent {
      MASTER DATA
   ================================= */
 
-  levels: string[] = [
-    'Beginner',
-    'Intermediate',
-    'Advanced'
-  ];
+  levels: { label: string; value: number }[] = [];
+  technologies: { label: string; value: number }[] = [];
+  statuses: { label: string; value: number }[] = [];
+  levelsLoading = false;
+  technologiesLoading = false;
+  statusesLoading = false;
+  courses: Course[] = [];
 
-  technologies: string[] = [
-    'Java',
-    'Spring Boot',
-    'Angular',
-    'Python',
-    'SQL',
-    'JavaScript',
-    'Microservices'
-  ];
+  private readonly apiUrl = `${API_BASE_URL}/courses`;
 
-  statuses: string[] = [
-    'Published',
-    'Draft'
-  ];
+  constructor(private readonly http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.loadComboOptions();
+    this.loadCourses();
+  }
+
+  
+
+  get statusFilterOptions(): { label: string; value: string }[] {
+    return [
+      { label: 'All Status', value: '' },
+      ...this.statuses.map(status => ({
+        label: status.label,
+        value: status.label
+      }))
+    ];
+  }
 
 
-  /* ================================
-     MOCK COURSE DATA
-     Replace with API later
-  ================================= */
+  private loadCourses(): void {
+  this.http
+    .get<CourseApiResponse[]>(`${this.apiUrl}/getAllCourses`)
+    .subscribe({
+      next: courses => {
+        this.courses = courses.map(course => ({
+          courseId: String(course.courseId),
+          courseName: course.courseName,
+          description: course.description ?? '',
+          level:
+            this.findOptionLabel(this.levels, course.levelId) ||
+            course.level,
+          technology:
+            this.findOptionLabel(this.technologies, course.technologyId) ||
+            String(course.technologyId),
+          status:
+            this.findOptionLabel(this.statuses, course.statusId) ||
+            course.status,
+          createdAt: ''
+        }));
+      },
+      error: error => {
+        console.error('Failed to load courses:', error);
+      }
+    });
+}
 
-  courses: Course[] = [
-    {
-      courseId: 'CRS001',
-      courseName: 'Java Full Stack',
-      description: 'Complete Java full stack development course.',
-      level: 'Beginner',
-      technology: 'Java',
-      status: 'Published',
-      createdDate: '10 Jan 2024'
-    },
-    {
-      courseId: 'CRS002',
-      courseName: 'Spring Boot',
-      description: 'Learn Spring Boot and REST API development.',
-      level: 'Intermediate',
-      technology: 'Spring Boot',
-      status: 'Published',
-      createdDate: '12 Jan 2024'
-    },
-    {
-      courseId: 'CRS003',
-      courseName: 'Angular Fundamentals',
-      description: 'Learn Angular from fundamentals to advanced concepts.',
-      level: 'Beginner',
-      technology: 'Angular',
-      status: 'Draft',
-      createdDate: '15 Jan 2024'
-    },
-    {
-      courseId: 'CRS004',
-      courseName: 'Python Programming',
-      description: 'Python programming fundamentals and practice.',
-      level: 'Beginner',
-      technology: 'Python',
-      status: 'Published',
-      createdDate: '18 Jan 2024'
-    },
-    {
-      courseId: 'CRS005',
-      courseName: 'SQL for Beginners',
-      description: 'Learn SQL and database fundamentals.',
-      level: 'Beginner',
-      technology: 'SQL',
-      status: 'Draft',
-      createdDate: '20 Jan 2024'
-    }
-  ];
 
 
   /* ================================
@@ -165,6 +155,74 @@ export class CoursesComponent {
    */
   totalLearners = 1245;
 
+  private loadComboOptions(): void {
+    this.levelsLoading = true;
+    this.http.get<{ levelId: number; levelName: string }[]>(`${this.apiUrl}/levels`).subscribe({
+      next: values => this.levels = (values ?? []).map(item => ({
+        label: this.toDisplayName(item.levelName),
+        value: item.levelId
+      })),
+      error: error => {
+        console.error('Failed to load course levels', error);
+        this.levelsLoading = false;
+      },
+      complete: () => this.levelsLoading = false
+    });
+
+    this.technologiesLoading = true;
+    this.http.get<{ technologyId: number; technologyName: string }[]>(`${this.apiUrl}/technologies`).subscribe({
+      next: values => this.technologies = (values ?? []).map(item => ({
+        label: item.technologyName,
+        value: item.technologyId
+      })),
+      error: error => {
+        console.error('Failed to load course technologies', error);
+        this.technologiesLoading = false;
+      },
+      complete: () => this.technologiesLoading = false
+    });
+
+    this.statusesLoading = true;
+    this.http.get<{ statusId: number; statusName: string }[]>(`${this.apiUrl}/statuses`).subscribe({
+      next: values => {
+        this.statuses = (values ?? []).map(item => ({
+          label: this.toDisplayName(item.statusName),
+          value: item.statusId
+        }));
+        if (this.courseForm.statusId === null && this.statuses.length) {
+          this.courseForm.statusId = this.statuses[0].value;
+        }
+      },
+      error: error => {
+        console.error('Failed to load course statuses', error);
+        this.statusesLoading = false;
+      },
+      complete: () => this.statusesLoading = false
+    });
+  }
+
+  private toDisplayName(value: string): string {
+    return value
+      .toLowerCase()
+      .replace(/\b\w/g, character => character.toUpperCase());
+  }
+
+  private findOptionValue(
+    options: { label: string; value: number }[],
+    label: string
+  ): number | null {
+    return options.find(option =>
+      option.label.toLowerCase() === label.toLowerCase()
+    )?.value ?? null;
+  }
+
+  private findOptionLabel(
+    options: { label: string; value: number }[],
+    value: number | null
+  ): string {
+    return options.find(option => option.value === value)?.label ?? '';
+  }
+
 
   /* ================================
      FILTERED COURSES
@@ -185,7 +243,7 @@ export class CoursesComponent {
           .includes(search);
 
       const matchesStatus =
-        this.selectedStatus === 'All Status' ||
+      !this.selectedStatus ||
         course.status === this.selectedStatus;
 
       return matchesSearch && matchesStatus;
@@ -220,10 +278,10 @@ export class CoursesComponent {
       courseId: course.courseId,
       courseName: course.courseName,
       description: course.description,
-      level: course.level,
-      technology: course.technology,
-      status: course.status,
-      createdDate: course.createdDate
+      levelId: course.levelId ?? this.findOptionValue(this.levels, course.level),
+      technologyId: course.technologyId ?? this.findOptionValue(this.technologies, course.technology),
+      statusId: course.statusId ?? this.findOptionValue(this.statuses, course.status),
+      createdAt: course.createdAt
     };
 
     this.selectedImage = course.image || null;
@@ -307,21 +365,21 @@ export class CoursesComponent {
       return false;
     }
 
-    if (!this.courseForm.level) {
+    if (this.courseForm.levelId === null) {
 
       alert('Please select level.');
 
       return false;
     }
 
-    if (!this.courseForm.technology) {
+    if (this.courseForm.technologyId === null) {
 
       alert('Please select technology.');
 
       return false;
     }
 
-    if (!this.courseForm.status) {
+    if (this.courseForm.statusId === null) {
 
       alert('Please select status.');
 
@@ -352,15 +410,24 @@ export class CoursesComponent {
         this.courseForm.description.trim(),
 
       level:
-        this.courseForm.level,
+        this.findOptionLabel(this.levels, this.courseForm.levelId),
+
+      levelId:
+        this.courseForm.levelId ?? undefined,
 
       technology:
-        this.courseForm.technology,
+        this.findOptionLabel(this.technologies, this.courseForm.technologyId),
+
+      technologyId:
+        this.courseForm.technologyId ?? undefined,
 
       status:
-        this.courseForm.status,
+        this.findOptionLabel(this.statuses, this.courseForm.statusId),
 
-      createdDate:
+      statusId:
+        this.courseForm.statusId ?? undefined,
+
+      createdAt:
         this.formatDate(new Date()),
 
       image:
@@ -402,13 +469,22 @@ export class CoursesComponent {
         this.courseForm.description.trim(),
 
       level:
-        this.courseForm.level,
+        this.findOptionLabel(this.levels, this.courseForm.levelId),
+
+      levelId:
+        this.courseForm.levelId ?? undefined,
 
       technology:
-        this.courseForm.technology,
+        this.findOptionLabel(this.technologies, this.courseForm.technologyId),
+
+      technologyId:
+        this.courseForm.technologyId ?? undefined,
 
       status:
-        this.courseForm.status,
+        this.findOptionLabel(this.statuses, this.courseForm.statusId),
+
+      statusId:
+        this.courseForm.statusId ?? undefined,
 
       image:
         this.selectedImage || undefined
@@ -451,10 +527,10 @@ export class CoursesComponent {
       courseId: '',
       courseName: '',
       description: '',
-      level: '',
-      technology: '',
-      status: 'Draft',
-      createdDate: ''
+      levelId: null,
+      technologyId: null,
+      statusId: this.statuses[0]?.value ?? null,
+      createdAt: ''
 
     };
 
@@ -540,7 +616,7 @@ export class CoursesComponent {
   clearFilters(): void {
 
     this.searchText = '';
-    this.selectedStatus = 'All Status';
+    this.selectedStatus = '';
 
   }
 
@@ -562,4 +638,17 @@ export class CoursesComponent {
 
   }
 
+}
+interface CourseApiResponse {
+  courseId: number;
+  courseCode: string;
+  courseName: string;
+  description: string | null;
+  technologyId: number;
+  levelId: number;
+  statusId: number;
+  level: string;
+  status: string;
+  durationHours: number | null;
+  createdAt:string
 }

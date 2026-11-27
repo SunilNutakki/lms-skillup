@@ -1,0 +1,257 @@
+
+<div class="add-course-page">
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <button
+      type="button"
+      class="back-button"
+      aria-label="Back to courses"
+      (click)="goBack()">
+      <i class="pi pi-arrow-left" aria-hidden="true"></i>
+    </button>
+
+    <div class="page-heading">
+      <h1>Add Course</h1>
+      <p>Enter the course details to create a new course.</p>
+    </div>
+  </header>
+
+  <!-- COURSE FORM -->
+  <form
+    #courseNgForm="ngForm"
+    (ngSubmit)="saveCourse()"
+    novalidate>
+
+    <div class="form-card">
+
+      <!-- COURSE NAME -->
+      <div class="form-field">
+        <label for="courseName">
+          Course Name <span class="required">*</span>
+        </label>
+
+        <input
+          id="courseName"
+          type="text"
+          name="courseName"
+          pInputText
+          [(ngModel)]="courseForm.courseName"
+          #courseName="ngModel"
+          placeholder="Enter course name"
+          maxlength="150"
+          required
+          [class.invalid]="courseName.invalid && (courseName.touched || submitted)" />
+
+        <small
+          class="error-message"
+          *ngIf="courseName.invalid && (courseName.touched || submitted)">
+          Please enter a course name.
+        </small>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="form-field">
+        <label for="description">
+          Description <span class="required">*</span>
+        </label>
+
+        <textarea
+          id="description"
+          name="description"
+          [(ngModel)]="courseForm.description"
+          #description="ngModel"
+          placeholder="Enter course description"
+          rows="4"
+          maxlength="2000"
+          required
+          [class.invalid]="description.invalid && (description.touched || submitted)">
+        </textarea>
+
+        <div class="field-footer">
+          <small
+            class="error-message"
+            *ngIf="description.invalid && (description.touched || submitted)">
+            Please enter a course description.
+          </small>
+
+          <small class="character-count">
+            {{ courseForm.description.length }}/2000
+          </small>
+        </div>
+      </div>
+
+      <!-- LEVEL AND TECHNOLOGY -->
+      <div class="form-row">
+
+        <!-- LEVEL -->
+        <div class="form-field">
+          <label for="level">
+            Level <span class="required">*</span>
+          </label>
+
+          <p-select
+            inputId="level"
+            name="level"
+            [options]="levels"
+            optionLabel="label"
+            optionValue="value"
+            [loading]="levelsLoading"
+            [disabled]="levelsLoading"
+            placeholder="Select level"
+            [(ngModel)]="courseForm.levelId"
+            #level="ngModel"
+            required
+            [class.invalid]="level.invalid && (level.touched || submitted)"
+            appendTo="body"
+            styleClass="w-full">
+          </p-select>
+
+          <small
+            class="error-message"
+            *ngIf="level.invalid && (level.touched || submitted)">
+            Please select a level.
+          </small>
+        </div>
+
+        <!-- TECHNOLOGY -->
+        <div class="form-field">
+          <label for="technology">
+            Technology <span class="required">*</span>
+          </label>
+
+          <p-select
+            inputId="technology"
+            name="technology"
+            [options]="technologies"
+            optionLabel="label"
+            optionValue="value"
+            [loading]="technologiesLoading"
+            [disabled]="technologiesLoading"
+            placeholder="Select technology"
+            [(ngModel)]="courseForm.technologyId"
+            #technology="ngModel"
+            required
+            [class.invalid]="technology.invalid && (technology.touched || submitted)"
+            appendTo="body"
+            styleClass="w-full">
+          </p-select>
+
+          <small
+            class="error-message"
+            *ngIf="technology.invalid && (technology.touched || submitted)">
+            Please select a technology.
+          </small>
+        </div>
+
+      </div>
+
+      <!-- STATUS -->
+      <div class="form-field status-field">
+        <label for="status">Status</label>
+
+        <p-select
+          inputId="status"
+          name="status"
+          [options]="statuses"
+          optionLabel="label"
+          optionValue="value"
+          [loading]="statusesLoading"
+          [disabled]="statusesLoading"
+          placeholder="Select status"
+          [(ngModel)]="courseForm.statusId"
+          appendTo="body"
+          styleClass="w-full">
+        </p-select>
+      </div>
+
+      <!-- COURSE IMAGE -->
+      <div class="form-field">
+        <label for="courseImage">
+          Course Image
+          <span class="optional-label">(Optional)</span>
+        </label>
+
+        <div class="image-upload-container">
+
+          <!-- IMAGE PREVIEW -->
+          <!-- <div
+            class="image-preview"
+            *ngIf="imagePreviewUrl; else emptyImagePreview">
+
+            <img
+              [src]="imagePreviewUrl"
+              alt="Selected course image preview" />
+
+          </div> -->
+
+          <ng-template #emptyImagePreview>
+            <div class="image-placeholder">
+              <i class="pi pi-image" aria-hidden="true"></i>
+            </div>
+          </ng-template>
+
+          <!-- IMAGE DETAILS -->
+          <div class="image-upload-details">
+            <strong>
+              {{ selectedImage?.name || 'Upload course image' }}
+            </strong>
+            <small>JPG, PNG or WebP · Maximum 5 MB</small>
+          </div>
+
+          <!-- FILE INPUT -->
+          <input
+            #imageInput
+            id="courseImage"
+            type="file"
+            name="courseImage"
+            accept="image/jpeg,image/png,image/webp"
+            class="file-input"
+            (change)="onImageSelected($event)" />
+
+          <label
+            for="courseImage"
+            class="browse-button">
+            Browse
+          </label>
+
+        </div>
+
+        <small class="error-message" *ngIf="imageError">
+          {{ imageError }}
+        </small>
+
+        <button
+          *ngIf="selectedImage"
+          type="button"
+          class="remove-image-button"
+          >
+          <i class="pi pi-trash" aria-hidden="true"></i>
+          Remove image
+        </button>
+      </div>
+
+    </div>
+
+    <!-- FORM ACTIONS -->
+    <div class="form-actions">
+
+      <!-- <button
+        type="button"
+        class="cancel-button"
+        (click)="goBack()">
+        Cancel
+      </button> -->
+
+      <button
+        type="submit"
+        class="save-button">
+        <i class="pi pi-save" aria-hidden="true"></i>
+        <span>Save Course</span>
+      </button>
+
+    </div>
+
+  </form>
+
+</div>

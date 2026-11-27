@@ -1,9 +1,88 @@
-<div class="dashboard-container">
+<section class="dashboard-page">
+  <header class="dashboard-heading">
+    <div>
+      <h1>Welcome Back, Admin!</h1>
+      <p>Here's what's happening with your LMS platform today.</p>
+    </div>
+    <button type="button" class="date-range" aria-label="Selected date range">
+      <i class="pi pi-calendar"></i>
+      <span>15 Oct 2026 - 15 Oct 2026</span>
+      <i class="pi pi-angle-down"></i>
+    </button>
+  </header>
 
-    <h1>Admin Dashboard</h1>
-  
-    <p>
-      Welcome to LMS SkillUp Admin Dashboard.
-    </p>
-  
-  </div>
+  <section class="stats-grid" aria-label="Platform overview">
+    <article class="stat-card" *ngFor="let stat of stats">
+      <span class="stat-icon" [ngClass]="stat.tone"><i [class]="stat.icon"></i></span>
+      <div class="stat-copy">
+        <span>{{ stat.label }}</span>
+        <strong>{{ stat.value }}</strong>
+      </div>
+      <div class="stat-change"><strong><i class="pi pi-arrow-up"></i> {{ stat.change }}</strong><span>vs last month</span></div>
+    </article>
+  </section>
+
+  <section class="analytics-grid">
+    <article class="panel enrollment-panel">
+      <div class="panel-heading">
+        <div><h2>Learner Enrollments</h2><p>Monthly enrollment trend for this year</p></div>
+        <button class="period-select" type="button">This Year <i class="pi pi-angle-down"></i></button>
+      </div>
+      <div class="chart-area">
+        <div class="y-axis"><span>250</span><span>200</span><span>150</span><span>100</span><span>50</span><span>0</span></div>
+        <div class="line-chart-wrap">
+          <svg class="line-chart" viewBox="0 0 600 160" preserveAspectRatio="none" role="img" aria-label="Monthly learner enrollments trend">
+            <defs><linearGradient id="enrollmentFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#2580f7" stop-opacity=".22"/><stop offset="100%" stop-color="#2580f7" stop-opacity="0"/></linearGradient></defs>
+            <path class="chart-fill" d="M8 143 L58 124 L108 105 L158 86 L208 76 L258 55 L308 81 L358 73 L408 67 L458 39 L508 31 L558 47 L558 150 L8 150 Z" />
+            <polyline class="chart-line" points="8,143 58,124 108,105 158,86 208,76 258,55 308,81 358,73 408,67 458,39 508,31 558,47" />
+            <g class="chart-dots"><circle cx="8" cy="143" r="4"/><circle cx="58" cy="124" r="4"/><circle cx="108" cy="105" r="4"/><circle cx="158" cy="86" r="4"/><circle cx="208" cy="76" r="4"/><circle cx="258" cy="55" r="4"/><circle cx="308" cy="81" r="4"/><circle cx="358" cy="73" r="4"/><circle cx="408" cy="67" r="4"/><circle cx="458" cy="39" r="4"/><circle cx="508" cy="31" r="4"/><circle cx="558" cy="47" r="4"/></g>
+          </svg>
+          <div class="x-axis"><span *ngFor="let month of months">{{ month }}</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="panel category-panel">
+      <div class="panel-heading"><div><h2>Courses by Category</h2><p>Total courses in each category</p></div></div>
+      <div class="category-content">
+        <div class="donut-chart" role="img" aria-label="Five courses across five categories"><div><strong>5</strong><span>Courses</span></div></div>
+        <ul class="category-legend">
+          <li *ngFor="let category of categories">
+            <span class="legend-name"><i [style.backgroundColor]="category.color"></i>{{ category.name }}</span>
+            <span>{{ category.count }}</span><span class="legend-percent">{{ category.percent }}</span>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <section class="lists-grid">
+    <article class="panel list-panel">
+      <div class="list-heading"><h2>Recent Courses</h2><button type="button">View All</button></div>
+      <div class="course-row" *ngFor="let course of recentCourses">
+        <span class="course-icon"><i class="pi pi-book"></i></span>
+        <strong>{{ course.name }}</strong>
+        <span class="level" [class.intermediate]="course.level === 'Intermediate'">{{ course.level }}</span>
+        <time>{{ course.date }}</time>
+      </div>
+    </article>
+
+    <article class="panel list-panel">
+      <div class="list-heading"><h2>Recent Learners</h2><button type="button">View All</button></div>
+      <div class="person-row" *ngFor="let learner of recentLearners">
+        <span class="initials" [ngClass]="learner.tone">{{ learner.initials }}</span>
+        <div class="person-copy"><strong>{{ learner.name }}</strong><span>Enrolled in {{ learner.course }}</span></div>
+        <time>{{ learner.date }}</time>
+      </div>
+    </article>
+
+    <article class="panel list-panel activity-panel">
+      <div class="list-heading"><h2>Recent Activities</h2><button type="button">View All</button></div>
+      <div class="activity-row" *ngFor="let activity of recentActivities">
+        <span class="activity-icon" [ngClass]="activity.tone"><i [class]="activity.icon"></i></span>
+        <div class="person-copy"><strong>{{ activity.title }}</strong><span>{{ activity.detail }}</span></div>
+        <time>{{ activity.when }}</time>
+      </div>
+    </article>
+  </section>
+</section>

@@ -11,11 +11,13 @@ import {
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { providePrimeNG } from 'primeng/config';
+
 import Aura from '@primeng/themes/aura';
 
 import { routes } from './app.routes';
 import { provideHttpClient,withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,10 +36,17 @@ export const appConfig: ApplicationConfig = {
 
     provideAnimationsAsync(),
 
+
     providePrimeNG({
-      theme: {
-        preset: Aura
-      }
-    })
+  theme: {
+    preset: Aura,
+    options: {
+      darkModeSelector: '.app-dark'
+    }
+  }
+}),
+MessageService
+
+
   ]
 };

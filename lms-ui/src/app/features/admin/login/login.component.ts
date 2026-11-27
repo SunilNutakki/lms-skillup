@@ -11,7 +11,6 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthService } from '../../../core/services/auth.service';
-import { AnyARecord } from 'node:dns';
 
 @Component({
   selector: 'app-login',
@@ -98,23 +97,22 @@ export class LoginComponent {
         if (response.success && response.token) {
       
           this.authService.setToken(response.token);
-          
-      
           console.log('JWT Token stored');
-          this.authService.getMyProfile().subscribe({
-            next: (dashboard
-              :any) => {
-              console.log('My Profile:', dashboard);
-              this.router.navigate([
-                dashboard.urlPath
-              ]);
-            },
-            error: (error) => {
-              console.error('Profile API Error:', error);
-            }
-          });
+          // this.authService.getMyProfile().subscribe({
+          //   next: (dashboard
+          //     :any) => {
+          //     console.log('My Profile:', dashboard);
+          //     this.router.navigate([
+          //       dashboard.urlPath
+          //     ]);
+          //   },
+          //   error: (error) => {
+          //     console.error('Profile API Error:', error);
+          //   }
+          // });
           
-      
+
+          void this.router.navigateByUrl('/tutor/dashboard/dashboard');
         }
       
         this.loading = false;

@@ -2,6 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { API_BASE_URL } from './api.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   private readonly TOKEN_KEY = 'lms_token';
-  private readonly apiUrl = 'http://localhost:8081/api/auth';
+  private readonly apiUrl = `${API_BASE_URL}/auth`;
 
   constructor(
     private http: HttpClient,

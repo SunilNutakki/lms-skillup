@@ -1,0 +1,401 @@
+:host {
+    display: block;
+    width: 100%;
+  }
+  
+  .add-course-page {
+    width: 100%;
+    min-height: 100%;
+    padding: 24px 28px 32px;
+    box-sizing: border-box;
+    background: #f5f7fb;
+  }
+  
+  
+  /* PAGE HEADER */
+  
+  .page-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 1440px;
+    margin: 0 auto 24px;
+  }
+  
+  .page-header h1 {
+    margin: 0;
+    color: #172033;
+    font-size: 23px;
+    font-weight: 700;
+  }
+  
+  .back-button {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #172033;
+    font-size: 17px;
+    cursor: pointer;
+  }
+  
+  .back-button:hover {
+    background: #e9edf5;
+  }
+  
+  
+  /* FORM CARD */
+  
+  .form-card {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #edf0f5;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(30, 45, 70, 0.04);
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 22px;
+  }
+
+  .form-card > .form-field:nth-child(1),
+  .form-card > .form-field:nth-child(2),
+  .form-card > .form-field:last-child {
+    grid-column: 1 / -1;
+  }
+  
+  
+  /* FORM FIELDS */
+  
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+    margin-bottom: 18px;
+  }
+  
+  .form-field label {
+    color: #1d2738;
+    font-size: 13px;
+    font-weight: 650;
+  }
+  
+  .form-field label span {
+    color: #ef4444;
+  }
+  
+  .form-field input,
+  .form-field textarea,
+  .form-field select {
+    width: 100%;
+    min-height: 43px;
+    padding: 11px 12px;
+    border: 1px solid #dce2eb;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #27364b;
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  
+  .form-field input::placeholder,
+  .form-field textarea::placeholder,
+  .form-field select:invalid {
+    color: #98a2b3;
+  }
+  
+  .form-field textarea {
+    min-height: 112px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  
+  .form-field input:focus,
+  .form-field textarea:focus,
+  .form-field select:focus {
+    border-color: #625bff;
+    box-shadow: 0 0 0 3px rgba(98, 91, 255, 0.10);
+  }
+  
+  .form-field input.invalid,
+  .form-field textarea.invalid,
+  .form-field select.invalid {
+    border-color: #ef4444;
+  }
+  
+  .error-message {
+    color: #dc2626;
+    font-size: 11px;
+  }
+  
+  
+  /* LEVEL AND TECHNOLOGY */
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+  
+  .form-row .form-field {
+    margin-bottom: 0;
+  }
+
+  .form-card > .form-row {
+    grid-column: 1 / -1;
+    margin-bottom: 18px;
+  }
+
+  .status-field {
+    grid-column: 1;
+    margin-bottom: 18px;
+  }
+  
+  .select-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .select-wrapper p-dropdown {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  :host ::ng-deep .select-wrapper .p-dropdown {
+    width: 100%;
+    min-width: 0;
+    min-height: 43px;
+    border-color: #dce2eb;
+    border-radius: 8px;
+  }
+
+  :host ::ng-deep .select-wrapper .p-dropdown-label {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding: 0.75rem 0.875rem;
+  }
+
+  :host ::ng-deep .select-wrapper .p-dropdown-trigger {
+    flex: 0 0 2.75rem;
+  }
+  
+  .select-wrapper select {
+    appearance: none;
+    padding-right: 35px;
+    cursor: pointer;
+  }
+  
+  .select-wrapper > i {
+    position: absolute;
+    top: 50%;
+    right: 13px;
+    transform: translateY(-50%);
+    color: #53627a;
+    font-size: 12px;
+    pointer-events: none;
+  }
+  
+  
+  /* SAVE BUTTON */
+  
+  .save-button {
+    width: 100%;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 9px;
+    background: linear-gradient(100deg, #625bff, #5148f5);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 650;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(91, 85, 246, 0.14);
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease;
+  }
+  
+  .save-button i {
+    font-size: 15px;
+  }
+  
+  .save-button:hover {
+    background: linear-gradient(100deg, #5148f5, #453be8);
+  }
+  
+  .save-button:active {
+    transform: translateY(1px);
+  }
+  
+  
+  /* TABLET AND MOBILE */
+  
+  @media (max-width: 600px) {
+    .add-course-page {
+      padding: 14px 12px 24px;
+    }
+  
+    .page-header {
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+  
+    .page-header h1 {
+      font-size: 20px;
+    }
+  
+    .form-card {
+      padding: 15px;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .status-field {
+      width: 100%;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  
+    .form-field {
+      margin-bottom: 16px;
+    }
+  
+    .form-row {
+      gap: 12px;
+    }
+  
+    .form-row .form-field {
+      margin-bottom: 0;
+    }
+  
+    .form-field label {
+      font-size: 12px;
+    }
+  
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      min-height: 42px;
+      padding: 10px;
+      font-size: 12px;
+    }
+  
+    .save-button {
+      margin-top: 16px;
+    }
+  }
+  
+  
+  /* VERY NARROW SCREENS */
+  
+  @media (max-width: 360px) {
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  .form-field input[type="file"] {
+    width: 100%;
+    min-height: 48px;
+    padding: 10px;
+    border: 1px dashed #cfd8e8;
+    border-radius: 7px;
+    background: #fafbfd;
+    color: #64748b;
+    font-size: 13px;
+    box-sizing: border-box;
+  }
+
+  .form-field input[type="file"]::file-selector-button {
+    margin-right: 12px;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 6px;
+    background: #e9edff;
+    color: #4338ca;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  @media (min-width: 601px) and (max-width: 900px) {
+    .add-course-page {
+      padding: 20px;
+    }
+
+    .form-card {
+      padding: 20px;
+      column-gap: 16px;
+    }
+  }
+
+  .form-field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  gap: 8px;
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0;
+
+    .required {
+      color: red;
+    }
+  }
+
+  ::ng-deep .p-dropdown {
+    width: 100%;
+    min-height: 48px;
+    box-sizing: border-box;
+
+    .p-dropdown-label {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+:host ::ng-deep .course-filters .p-dropdown {
+    width: 125px;
+    height: 38px;
+  }
+
+  :host ::ng-deep .p-dropdown-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 900px) {
+    .course-main-layout,
+    .course-main-layout.form-open {
+      grid-template-columns: 1fr;
+    }
+  }

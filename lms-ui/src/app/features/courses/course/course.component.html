@@ -188,23 +188,17 @@
   
             <!-- STATUS -->
   
-            <select
+            <p-dropdown
               class="status-filter"
-              [(ngModel)]="selectedStatus">
-  
-              <option value="">
-                All Status
-              </option>
-  
-              <option value="Published">
-                Published
-              </option>
-  
-              <option value="Draft">
-                Draft
-              </option>
-  
-            </select>
+              [options]="statusFilterOptions"
+              optionLabel="label"
+              optionValue="value"
+              [loading]="statusesLoading"
+              [disabled]="statusesLoading"
+              [(ngModel)]="selectedStatus"
+              appendTo="body"
+              styleClass="w-full">
+            </p-dropdown>
   
   
             <!-- CLEAR -->
@@ -602,23 +596,19 @@
   
             </label>
   
-            <select
+            <p-dropdown
               id="level"
-              [(ngModel)]="courseForm.level">
-  
-              <option value="">
-                Select Level
-              </option>
-  
-              <option
-                *ngFor="let level of levels"
-                [value]="level">
-  
-                {{ level }}
-  
-              </option>
-  
-            </select>
+              inputId="level"
+              [options]="levels"
+              optionLabel="label"
+              optionValue="value"
+              [loading]="levelsLoading"
+              placeholder="Select Level"
+              [disabled]="levelsLoading"
+              [(ngModel)]="courseForm.levelId"
+              appendTo="body"
+              styleClass="w-full">
+            </p-dropdown>
   
           </div>
   
@@ -635,23 +625,19 @@
   
             </label>
   
-            <select
+            <p-dropdown
               id="technology"
-              [(ngModel)]="courseForm.technology">
-  
-              <option value="">
-                Select Technology
-              </option>
-  
-              <option
-                *ngFor="let technology of technologies"
-                [value]="technology">
-  
-                {{ technology }}
-  
-              </option>
-  
-            </select>
+              inputId="technology"
+              [options]="technologies"
+              optionLabel="label"
+              optionValue="value"
+              [loading]="technologiesLoading"
+              placeholder="Select Technology"
+              [disabled]="technologiesLoading"
+              [(ngModel)]="courseForm.technologyId"
+              appendTo="body"
+              styleClass="w-full">
+            </p-dropdown>
   
           </div>
   
@@ -664,19 +650,19 @@
               Status
             </label>
   
-            <select
+            <p-dropdown
               id="status"
-              [(ngModel)]="courseForm.status">
-  
-              <option value="Draft">
-                Draft
-              </option>
-  
-              <option value="Published">
-                Published
-              </option>
-  
-            </select>
+              inputId="status"
+              [options]="statuses"
+              optionLabel="label"
+              optionValue="value"
+              [loading]="statusesLoading"
+              placeholder="Select Status"
+              [disabled]="statusesLoading"
+              [(ngModel)]="courseForm.statusId"
+              appendTo="body"
+              styleClass="w-full">
+            </p-dropdown>
   
           </div>
   

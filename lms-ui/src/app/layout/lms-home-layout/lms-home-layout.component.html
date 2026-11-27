@@ -12,7 +12,7 @@
   
         <!-- Mobile Menu -->
   
-        <button
+          <button
           type="button"
           class="menu-toggle"
           (click)="toggleSidebar()"
@@ -25,18 +25,16 @@
   
         <!-- Logo -->
   
-        <a
-          routerLink="/admin/dashboard"
-          class="lms-logo">
-  
+        <a class="lms-logo">
           <span class="logo-icon">
             <i class="pi pi-graduation-cap"></i>
           </span>
-  
-          <span class="logo-text">
-            LMS SkillUp
+        
+          <span class="logo-copy">
+            <span class="logo-text">LMS SkillUp</span>
+            <small class="logo-subtitle">Learning Management</small>
           </span>
-  
+        
         </a>
   
   
@@ -117,269 +115,47 @@
   
         <!-- Sidebar Navigation -->
   
-        <nav class="sidebar-navigation">
-  
-  
-          <!-- Dashboard -->
-  
-          <a
-            routerLink="/admin/dashboard"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            class="menu-item"
-            (click)="closeSidebar()">
-  
-            <i class="pi pi-home"></i>
-  
-            <span>
-              Dashboard
-            </span>
-  
-          </a>
-  
-  
-          <!-- Courses -->
-  
-          <div class="menu-section">
-  
-            <div class="menu-item menu-parent active-parent">
-  
-              <i class="pi pi-book"></i>
-  
-              <span>
-                Courses
-              </span>
-  
-              <i class="pi pi-angle-up menu-arrow"></i>
-  
-            </div>
-  
-  
-            <div class="submenu">
-  
+        <nav class="sidebar-navigation" aria-label="Main navigation">
+          <ng-container *ngFor="let item of menuItems">
+            <ng-container *ngIf="item.id === 'courses'; else directMenuLink">
+              <button
+                type="button"
+                class="menu-item menu-parent"
+                [class.menu-expanded]="openMenuId === item.id"
+                [attr.aria-expanded]="openMenuId === item.id"
+                aria-controls="courses-submenu"
+                (click)="toggleMenu(item.id!)">
+                <i [class]="item.icon"></i>
+                <span>{{ item.label }}</span>
+                <i class="pi menu-arrow" [ngClass]="openMenuId === item.id ? 'pi-angle-up' : 'pi-angle-down'"></i>
+              </button>
+
+              <div id="courses-submenu" class="submenu" *ngIf="openMenuId === item.id">
+                <a
+                  *ngFor="let child of item.items"
+                  [routerLink]="child.routerLink"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="submenu-item"
+                  (click)="closeSidebar()">
+                  <i [class]="child.icon"></i>
+                  <span>{{ child.label }}</span>
+                </a>
+              </div>
+            </ng-container>
+
+            <ng-template #directMenuLink>
               <a
-                routerLink="/tutor/dashboard/courses"
+                [routerLink]="item.routerLink"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"
-                class="submenu-item"
+                class="menu-item"
                 (click)="closeSidebar()">
-  
-                <i class="pi pi-list"></i>
-  
-                <span>
-                  Course List
-                </span>
-  
+                <i [class]="item.icon"></i>
+                <span>{{ item.label }}</span>
               </a>
-  
-  
-              <a
-                routerLink="/admin/courses/add"
-                routerLinkActive="active"
-                class="submenu-item"
-                (click)="closeSidebar()">
-  
-                <i class="pi pi-plus-circle"></i>
-  
-                <span>
-                  Add Course
-                </span>
-  
-              </a>
-  
-            </div>
-  
-          </div>
-  
-  
-          <!-- Modules -->
-  
-          <a
-            routerLink="/admin/modules"
-            routerLinkActive="active"
-            class="menu-item"
-            (click)="closeSidebar()">
-  
-            <i class="pi pi-th-large"></i>
-  
-            <span>
-              Modules
-            </span>
-  
-          </a>
-  
-  
-          <!-- Learning Content -->
-  
-          <div class="menu-section">
-  
-            <div class="menu-item menu-parent">
-  
-              <i class="pi pi-video"></i>
-  
-              <span>
-                Learning Content
-              </span>
-  
-              <i class="pi pi-angle-down menu-arrow"></i>
-  
-            </div>
-  
-          </div>
-  
-  
-          <!-- Videos -->
-  
-          <a
-            routerLink="/admin/content/videos"
-            routerLinkActive="active"
-            class="menu-item child-menu-item"
-            (click)="closeSidebar()">
-  
-            <i class="pi pi-play-circle"></i>
-  
-            <span>
-              Videos
-            </span>
-  
-          </a>
-  
-  
-          <!-- Notes -->
-  
-          <a
-            routerLink="/admin/content/materials"
-            routerLinkActive="active"
-            class="menu-item child-menu-item"
-            (click)="closeSidebar()">
-  
-            <i class="pi pi-file"></i>
-  
-            <span>
-              Notes / Materials
-            </span>
-  
-          </a>
-  
-  
-          <!-- Practice -->
-  
-          <a
-            routerLink="/admin/practice"
-            routerLinkActive="active"
-            class="menu-item"
-            (click)="closeSidebar()">
-  
-            <i class="pi pi-code"></i>
-  
-            <span>
-              Practice Exercises
-            </span>
-  
-          </a>
-  
-  
-          <!-- Interview -->
-  
-          <a
-            routerLink="/admin/interview-questions"
-            routerLinkActive="active"
-            class="menu-item"
-            (click)="closeSidebar()">
-  
-            <i class="pi pi-question-circle"></i>
-  
-            <span>
-              Interview Questions
-            </span>
-  
-          </a>
-  
-  
-          <!-- Quiz -->
-  
-          <a
-            routerLink="/admin/quizzes"
-            routerLinkActive="active"
-            class="menu-item"
-            (click)="closeSidebar()">
-  
-            <i class="pi pi-list-check"></i>
-  
-            <span>
-              Quiz Management
-            </span>
-  
-          </a>
-  
-  
-          <!-- Publish -->
-  
-          <a
-            routerLink="/admin/publish"
-            routerLinkActive="active"
-            class="menu-item"
-            (click)="closeSidebar()">
-  
-            <i class="pi pi-send"></i>
-  
-            <span>
-              Publish / Manage
-            </span>
-  
-          </a>
-  
-  
-          <!-- Reports -->
-  
-          <a
-            routerLink="/admin/reports"
-            routerLinkActive="active"
-            class="menu-item"
-            (click)="closeSidebar()">
-  
-            <i class="pi pi-chart-bar"></i>
-  
-            <span>
-              Reports
-            </span>
-  
-          </a>
-  
-  
-          <!-- Users -->
-  
-          <a
-            routerLink="/admin/users"
-            routerLinkActive="active"
-            class="menu-item"
-            (click)="closeSidebar()">
-  
-            <i class="pi pi-users"></i>
-  
-            <span>
-              Users
-            </span>
-  
-          </a>
-  
-  
-          <!-- Settings -->
-  
-          <a
-            routerLink="/admin/settings"
-            routerLinkActive="active"
-            class="menu-item"
-            (click)="closeSidebar()">
-  
-            <i class="pi pi-cog"></i>
-  
-            <span>
-              Settings
-            </span>
-  
-          </a>
-  
+            </ng-template>
+          </ng-container>
         </nav>
   
       </aside>

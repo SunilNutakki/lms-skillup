@@ -1,0 +1,792 @@
+<div class="modules-page">
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <header class="page-header">
+
+        <div class="page-heading">
+            <h1>Modules</h1>
+
+            <div class="breadcrumb">
+                <span>Dashboard</span>
+                <i class="pi pi-angle-right"></i>
+                <span>Courses</span>
+                <i class="pi pi-angle-right"></i>
+                <strong>Modules</strong>
+            </div>
+        </div>
+
+        <div class="header-actions">
+
+            <button type="button" class="btn btn-secondary" (click)="goBackToCourses()">
+
+                <i class="pi pi-arrow-left"></i>
+                <span>Back to Courses</span>
+
+            </button>
+            <button type="button" class="btn btn-primary" (click)="openDynamicModal(
+              'Add Module',
+              'add',
+              'md',
+              {
+                courseId: selectedCourseId,
+                mode: 'add'
+              }
+            )">
+                Add Module
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         COURSE SELECTOR
+    ====================================================== -->
+
+    <section class="course-selector-panel">
+
+        <div class="selector-heading">
+
+            <div class="selector-icon">
+                <i class="pi pi-book"></i>
+            </div>
+
+            <div>
+                <h2>Select Course</h2>
+                <p>Choose a course to view and manage its modules.</p>
+            </div>
+
+        </div>
+
+        <div class="selector-control">
+
+            <label for="selectedCourse">
+                Course
+            </label>
+
+            <div class="select-wrapper">
+                <p-select inputId="courseId" name="courseId" [options]="courses" optionLabel="courseName"
+                    optionValue="courseId" placeholder="Select course" [(ngModel)]="selectedCourseId" required
+                  (ngModelChange)="onMainCourseChange($event)" appendTo="body" [style]="{ width: '250px' }">
+                </p-select>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SELECTED COURSE SUMMARY
+    ====================================================== -->
+
+    <section class="course-summary" *ngIf="selectedCourse as course">
+
+        <div class="course-summary-main">
+
+            <div class="course-image">
+
+                <img *ngIf="course.image" [src]="course.image" [alt]="course.courseName" />
+
+                <i *ngIf="!course.image" class="pi pi-book">
+                </i>
+
+            </div>
+
+            <div class="course-info">
+
+                <div class="course-title-row">
+
+                    <h2>{{ course.courseName }}</h2>
+
+                    <span class="status-badge" [class.published]="course.status === 'Published'"
+                        [class.draft]="course.status === 'Draft'">
+
+                        {{ course.status }}
+
+                    </span>
+
+                </div>
+
+                <p class="course-description">
+                    {{ course.description || 'No course description available.' }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="course-metadata">
+
+            <div class="metadata-item">
+
+                <span class="metadata-label">
+                    <i class="pi pi-chart-bar"></i>
+                    Level
+                </span>
+
+                <strong class="level-badge">
+                    {{ course.level || 'Not specified' }}
+                </strong>
+
+            </div>
+
+            <div class="metadata-item">
+
+                <span class="metadata-label">
+                    <i class="pi pi-code"></i>
+                    Technology
+                </span>
+
+                <strong class="technology-badge">
+                    {{ course.technology || 'Not specified' }}
+                </strong>
+
+            </div>
+
+            <div class="metadata-item">
+
+                <span class="metadata-label">
+                    <i class="pi pi-list"></i>
+                    Total Modules
+                </span>
+
+                <strong>
+                    {{ filteredModules.length }}
+                </strong>
+
+            </div>
+
+            <div class="metadata-item">
+
+                <span class="metadata-label">
+                    <i class="pi pi-calendar"></i>
+                    Created On
+                </span>
+
+                <strong>
+                    {{ course.createdDate || '—' }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         NO COURSE SELECTED
+    ====================================================== -->
+
+    <section class="no-course-state" *ngIf="!selectedCourse">
+
+        <div class="empty-icon">
+            <i class="pi pi-book"></i>
+        </div>
+
+        <h2>Select a course to continue</h2>
+
+        <p>
+            Choose Core Java, Spring Boot, Angular, or another course
+            from the dropdown above to view its modules.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         MODULE MANAGEMENT
+    ====================================================== -->
+
+    <div class="module-layout" *ngIf="selectedCourse" [class.form-open]="showModuleForm">
+
+
+        <!-- ===================================================
+           MODULE LIST PANEL
+      ==================================================== -->
+
+        <section class="module-list-panel">
+
+            <!-- LIST HEADER -->
+
+            <div class="module-list-header">
+
+                <div class="list-heading">
+
+                    <h2>Module List</h2>
+
+                    <p>
+                        Manage modules for {{ selectedCourse.courseName }}
+                    </p>
+
+                </div>
+
+
+                <!-- SEARCH AND FILTER -->
+
+                <div class="module-filters">
+
+                    <div class="search-box">
+
+                        <i class="pi pi-search"></i>
+
+                        <input type="text" name="moduleSearch" [(ngModel)]="searchText"
+                            placeholder="Search modules..." />
+
+                    </div>
+
+
+                    <div class="select-wrapper status-filter">
+
+                        <select name="moduleStatusFilter" [(ngModel)]="selectedStatus">
+
+                            <option value="">All Status</option>
+                            <option value="Published">Published</option>
+                            <option value="Draft">Draft</option>
+
+                        </select>
+
+                        <i class="pi pi-chevron-down"></i>
+
+                    </div>
+
+
+                    <button *ngIf="searchText || selectedStatus" type="button" class="filter-clear-btn"
+                        (click)="clearFilters()" title="Clear filters">
+
+                        <i class="pi pi-filter-slash"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+             DESKTOP / TABLET TABLE
+        ================================================== -->
+
+            <div class="module-table-wrapper">
+
+                <p-table [value]="filteredModules" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    responsiveLayout="scroll" styleClass="modules-table">
+
+                    <!-- TABLE HEADER -->
+
+                    <ng-template pTemplate="header">
+
+                        <tr>
+
+                            <th class="number-column">#</th>
+
+                            <th>Module Name</th>
+
+                            <th>Description</th>
+
+                            <th class="order-column">Order</th>
+
+                            <th>Status</th>
+
+                            <th class="actions-column">Actions</th>
+
+                        </tr>
+
+                    </ng-template>
+
+
+                    <!-- TABLE BODY -->
+
+                    <ng-template pTemplate="body" let-module let-rowIndex="rowIndex">
+
+                        <tr>
+
+                            <td class="number-column">
+                                {{ rowIndex + 1 }}
+                            </td>
+
+
+                            <!-- MODULE NAME -->
+
+                            <td>
+
+                                <div class="module-name-cell">
+
+                                    <div class="module-icon">
+                                        <i class="pi pi-code"></i>
+                                    </div>
+
+                                    <div class="module-name-text">
+                                        <strong>{{ module.moduleName }}</strong>
+
+                                        <small *ngIf="module.moduleId">
+                                            {{ module.moduleId }}
+                                        </small>
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- DESCRIPTION -->
+
+                            <td>
+
+                                <span class="module-description" [title]="module.description">
+
+                                    {{ module.description || '—' }}
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- ORDER -->
+
+                            <td class="order-column">
+
+                                <span class="order-badge">
+                                    {{ module.displayOrder }}
+                                </span>
+
+                            </td>
+
+
+                            <!-- STATUS -->
+
+                            <td>
+
+                                <span class="status-badge" [class.published]="module.status === 'Published'"
+                                    [class.draft]="module.status === 'Draft'">
+
+                                    <i class="pi" [class.pi-check-circle]="module.status === 'Published'"
+                                        [class.pi-clock]="module.status === 'Draft'">
+                                    </i>
+
+                                    {{ module.status }}
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- ACTIONS -->
+
+                            <td class="actions-column">
+
+                                <div class="action-buttons">
+
+                                    <button type="button" class="icon-btn view" title="View module"
+                                        (click)="viewModule(module)">
+
+                                        <i class="pi pi-eye"></i>
+
+                                    </button>
+
+                                    <button type="button" class="icon-btn edit" title="Edit module"
+                                        (click)="editModule(module)">
+
+                                        <i class="pi pi-pencil"></i>
+
+                                    </button>
+
+                                    <button type="button" class="icon-btn delete" title="Delete module"
+                                        (click)="deleteModule(module)">
+
+                                        <i class="pi pi-trash"></i>
+
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </ng-template>
+
+
+                    <!-- EMPTY TABLE -->
+
+                    <ng-template pTemplate="emptymessage">
+
+                        <tr>
+
+                            <td colspan="6">
+
+                                <div class="empty-state">
+
+                                    <div class="empty-icon">
+                                        <i class="pi pi-search"></i>
+                                    </div>
+
+                                    <h3>No modules found</h3>
+
+                                    <p>
+                                        Try changing your search or status filter.
+                                    </p>
+
+                                    <button type="button" class="btn btn-secondary" (click)="clearFilters()">
+
+                                        <i class="pi pi-filter-slash"></i>
+                                        Clear Filters
+
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </ng-template>
+
+                </p-table>
+
+            </div>
+
+
+            <!-- =================================================
+             MOBILE MODULE CARDS
+        ================================================== -->
+
+            <div class="mobile-module-list">
+
+                <div class="mobile-module-card" *ngFor="let module of filteredModules; let i = index">
+
+                    <div class="mobile-module-main">
+
+                        <div class="module-icon">
+                            <i class="pi pi-code"></i>
+                        </div>
+
+                        <div class="mobile-module-info">
+
+                            <h3>{{ module.moduleName }}</h3>
+
+                            <p>
+                                {{ module.description || 'No description available.' }}
+                            </p>
+
+                            <div class="mobile-module-meta">
+
+                                <span>
+                                    Order: {{ module.displayOrder }}
+                                </span>
+
+                                <span class="status-badge" [class.published]="module.status === 'Published'"
+                                    [class.draft]="module.status === 'Draft'">
+
+                                    {{ module.status }}
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mobile-module-actions">
+
+                        <button type="button" class="icon-btn view" title="View module" (click)="viewModule(module)">
+
+                            <i class="pi pi-eye"></i>
+                            <span>View</span>
+
+                        </button>
+
+                        <button type="button" class="icon-btn edit" title="Edit module" (click)="editModule(module)">
+
+                            <i class="pi pi-pencil"></i>
+                            <span>Edit</span>
+
+                        </button>
+
+                        <button type="button" class="icon-btn delete" title="Delete module"
+                            (click)="deleteModule(module)">
+
+                            <i class="pi pi-trash"></i>
+                            <span>Delete</span>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MOBILE EMPTY STATE -->
+
+                <div class="empty-state mobile-empty-state" *ngIf="filteredModules.length === 0">
+
+                    <div class="empty-icon">
+                        <i class="pi pi-search"></i>
+                    </div>
+
+                    <h3>No modules found</h3>
+
+                    <p>Try another search or status filter.</p>
+
+                    <button type="button" class="btn btn-secondary" (click)="clearFilters()">
+
+                        Clear Filters
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===================================================
+           ADD / EDIT MODULE FORM
+      ==================================================== -->
+
+        <section class="module-form-panel" *ngIf="showModuleForm">
+
+            <!-- FORM HEADER -->
+
+            <div class="form-header">
+
+                <div>
+
+                    <h2>
+                        {{ editMode ? 'Edit Module' : 'Add Module' }}
+                    </h2>
+
+                    <p>
+                        {{
+                        editMode
+                        ? 'Update module information'
+                        : 'Add a module to the selected course'
+                        }}
+                    </p>
+
+                </div>
+
+                <button type="button" class="form-close-btn" title="Close form" (click)="resetModuleForm()">
+
+                    <i class="pi pi-times"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- FORM BODY -->
+
+            <form #moduleNgForm="ngForm" (ngSubmit)="saveModule()" novalidate>
+
+                <div class="module-form-body">
+
+
+                    <!-- COURSE -->
+
+                    <div class="form-field">
+
+                        <label for="moduleCourse">
+                            Course <span>*</span>
+                        </label>
+
+                        <div class="select-wrapper">
+                            <p-select inputId="courseId" name="courseId" [options]="courses" optionLabel="courseName" optionValue="courseId"
+                                placeholder="Select course" [(ngModel)]="moduleForm.courseId" [showClear]="true" appendTo="body" styleClass="w-full"
+                              (onChange)="onCourseChange($event.value)"  >
+                            </p-select>
+
+                        </div>
+
+                        <small class="field-hint">
+                            Modules are associated with the selected course.
+                        </small>
+
+                    </div>
+
+
+                    <!-- MODULE NAME -->
+
+                    <div class="form-field">
+
+                        <label for="moduleName">
+                            Module Name <span>*</span>
+                        </label>
+
+                        <input id="moduleName" type="text" name="moduleName" [(ngModel)]="moduleForm.moduleName"
+                            #moduleNameCtrl="ngModel" placeholder="Enter module name" maxlength="150" required
+                            [class.invalid]="
+                  moduleNameCtrl.invalid &&
+                  (moduleNameCtrl.touched || submitted)
+                " />
+
+                        <small class="error-message" *ngIf="
+                  moduleNameCtrl.invalid &&
+                  (moduleNameCtrl.touched || submitted)
+                ">
+
+                            Please enter a module name.
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-field">
+
+                        <label for="moduleDescription">
+                            Description <span>*</span>
+                        </label>
+
+                        <textarea id="moduleDescription" name="moduleDescription" [(ngModel)]="moduleForm.description"
+                            #descriptionCtrl="ngModel" rows="4" maxlength="2000" placeholder="Enter module description"
+                            required [class.invalid]="
+                  descriptionCtrl.invalid &&
+                  (descriptionCtrl.touched || submitted)
+                ">
+              </textarea>
+
+                        <small class="error-message" *ngIf="
+                  descriptionCtrl.invalid &&
+                  (descriptionCtrl.touched || submitted)
+                ">
+
+                            Please enter a description.
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- DISPLAY ORDER -->
+
+                    <div class="form-field">
+
+                        <label for="displayOrder">
+                            Display Order <span>*</span>
+                        </label>
+
+                        <input id="displayOrder" type="number" name="displayOrder" [(ngModel)]="moduleForm.displayOrder"
+                            #displayOrderCtrl="ngModel" min="1" step="1" required [class.invalid]="
+                  displayOrderCtrl.invalid &&
+                  (displayOrderCtrl.touched || submitted)
+                " />
+
+                        <small class="error-message" *ngIf="
+                  displayOrderCtrl.invalid &&
+                  (displayOrderCtrl.touched || submitted)
+                ">
+
+                            Enter a display order of at least 1.
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="form-field">
+
+                        <label for="moduleStatus">
+                            Status <span>*</span>
+                        </label>
+
+                        <div class="select-wrapper">
+
+                            <select id="moduleStatus" name="moduleStatus" [(ngModel)]="moduleForm.status"
+                                #statusCtrl="ngModel" required>
+
+                                <option value="" disabled>
+                                    Select status
+                                </option>
+
+                                <option value="Draft">
+                                    Draft
+                                </option>
+
+                                <option value="Published">
+                                    Published
+                                </option>
+
+                            </select>
+
+                            <i class="pi pi-chevron-down"></i>
+
+                        </div>
+
+                        <small class="error-message" *ngIf="
+                  statusCtrl.invalid &&
+                  (statusCtrl.touched || submitted)
+                ">
+
+                            Please select a status.
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FORM FOOTER -->
+
+                <div class="form-footer">
+
+                    <button type="submit" class="btn btn-primary save-module-btn">
+
+                        <i class="pi" [class.pi-save]="!editMode" [class.pi-check]="editMode">
+                        </i>
+
+                        <span>
+                            {{ editMode ? 'Update Module' : 'Save Module' }}
+                        </span>
+
+                    </button>
+
+                    <button type="button" class="btn btn-secondary reset-btn" (click)="resetModuleForm()">
+
+                        <i class="pi pi-refresh"></i>
+                        <span>Reset</span>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </div>
+
+</div>
+<!-- Common dynamic modal -->
+<p-dialog [(visible)]="isModalOpen" [modal]="true" [draggable]="false" [resizable]="false" [closable]="true"
+    [dismissableMask]="false" [header]="dynamicModalName" [style]="{
+  width: dynamicModalSize,
+  maxWidth: '95vw'
+}" [breakpoints]="{
+  '960px': '85vw',
+  '640px': '95vw'
+}" (onHide)="onModalHide()">
+
+    <div class="dynamic-modal-body">
+        <router-outlet name="modal" (activate)="onModalActivate()" (deactivate)="onModalDeactivate()">
+        </router-outlet>
+    </div>
+
+</p-dialog>

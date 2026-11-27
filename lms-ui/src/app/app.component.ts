@@ -5,6 +5,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
 
 interface Statistic {
   icon: string;
@@ -43,7 +44,8 @@ interface Testimonial {
     RouterOutlet,
     RouterLink,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    ToastModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
